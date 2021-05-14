@@ -38,8 +38,12 @@ def D(I, I_star, exponent, c=1.0, halved=False):
 
 
 def standard_c(I_min, I_max, I_star, exponent):
-    return 1/scipy.integrate.quad(lambda x: D(x, I_star,
+    result = scipy.integrate.quad(lambda x: D(x, I_star,
                                               exponent), I_min, I_max)[0]
+    if result == 0.0:
+        return np.inf
+    else:
+        return 1/result
 
 
 def single_x(I, I_max, I_star, exponent, c):
