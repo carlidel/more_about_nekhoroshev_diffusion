@@ -37,6 +37,14 @@ def D(I, I_star, exponent, c=1.0, halved=False):
     return c * np.exp(-2*np.power(I_star/I, exponent)) * (0.5 if halved else 1.0)
 
 
+def D_exp(I, k, c=1.0, halved=False):
+    return c * np.exp(k * I) * (0.5 if halved else 1.0)
+
+
+def D_poly(I, a, c=1.0, halved=False):
+    return c * np.power(I, a) * (0.5 if halved else 1.0)
+
+
 def standard_c(I_min, I_max, I_star, exponent):
     result = scipy.integrate.quad(lambda x: D(x, I_star,
                                               exponent), I_min, I_max)[0]
@@ -238,8 +246,7 @@ def current_generic(t, rho, I_max, I_int_min, I_star, exponent, c):
 
 
 def compute_current_with_peak(I_0, I_max, I_star, exponent, t_sampling=1000, I_sampling=50000, I_min=0.0):
-    c = 1/scipy.integrate.quad(lambda x: D(x, I_star,
-                               exponent), I_min, I_max)[0]
+    c = standard_c(I_min, I_max, I_star, exponent)
     I_linspace, dI = np.linspace(I_min, I_max, I_sampling, retstep=True)
     sigma = dI * 5
     def rho_0(I):
@@ -259,8 +266,54 @@ def compute_current_with_peak(I_0, I_max, I_star, exponent, t_sampling=1000, I_s
     return times, current, ana_current_peak_time, ana_current_peak_value, num_current_time, num_current_peak
 
 
+def compute_generic_current_with_peak(I_0, I_max, rho, I_star, exponent, t_sampling=1000, t_multiplier=2, I_sampling=50000, I_min=0.0):
+    c = standard_c(I_min, I_max, I_star, exponent)
+    I_linspace, dI = np.linspace(I_min, I_max, I_sampling, retstep=True)
+    ana_current_peak_time = current_peak_time(I_0, I_max, I_star, exponent, c)
+    
+    dt = ana_current_peak_time/t_sampling
+    engine = cn.cn_generic(
+        I_min, I_max,
+        rho(I_linspace),
+        dt,
+        lambda x: D(x, I_star, exponent, c, halved=True),
+        normalize=False
+    )
+    times, current = engine.current(t_sampling * t_multiplier, 1)
+
+    num_current_peak = np.max(current)
+    num_current_time = times[np.argmax(current)]
+
+    return c, times, current, ana_current_peak_time, num_current_time, num_current_peak
+
+
+def locate_generic_maximum(I_0, I_max, rho, I_star, exponent, starting_point=None, I_min_int=0.1):
+    c = standard_c(0.0, I_max, I_star, exponent)
+    if starting_point is None:
+        starting_point = current_peak_time(I_0, I_max, I_star, exponent, c)
+    result = scipy.optimize.fmin(
+        lambda x: - current_generic(x, rho, I_max, I_min_int, I_star, exponent, c)[0],
+        starting_point,
+        disp=False
+    )
+    return result
+
+
+def analytical_recover(I_0, I_max, I_star, exponent, ratio=0.1, I_min=0.0):
+    c = standard_c(I_min, I_max, I_star, exponent)
+    t0 = current_peak_time(I_0, I_max, I_star, exponent, c)
+    m0 = current_peak_value(I_0, I_max, I_star, exponent, c)
+    result = scipy.optimize.fmin(
+        lambda x: np.absolute(current_point(
+            x, I_0, I_max, I_star, exponent, c) - m0 * ratio),
+        t0*0.5,
+        disp=False
+    )
+    return result[0]
+
+
 def single_fit_routine(x, peak_time, peak_value, I_0, I_max, I_star, exponent, I_min=0):
-    c = 1/scipy.integrate.quad(lambda x: D(x, I_star, exponent), I_min, I_max)[0]
+    c = standard_c(I_min, I_max, I_star, exponent)
     t = current_peak_time(I_0, I_max, x[0], x[1], c)
     v = current_peak_value(I_0, I_max, x[0], x[1], c)
     e1 = np.absolute(peak_time - t)/peak_time
