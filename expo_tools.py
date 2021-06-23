@@ -22,6 +22,16 @@ def standard_c(I_min, I_max, a):
         return 1/result
 
 
+def afpt(I_min, I_max, a, c=None):
+    if c is None:
+        c = standard_c(0.0, I_max, a)
+    return scipy.integrate.quad(
+        lambda x: 2*x/D(x, a, c=c),
+        I_min,
+        I_max
+    )[0]
+
+
 def single_x(I, I_max, a, c):
     return -scipy.integrate.quad(lambda x: 1/np.sqrt(D(x, a, c)), I, I_max)[0]
 

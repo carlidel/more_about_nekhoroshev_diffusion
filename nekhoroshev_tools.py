@@ -54,6 +54,16 @@ def standard_c(I_min, I_max, I_star, exponent):
         return 1/result
 
 
+def afpt(I_min, I_max, I_star, exponent, c=None):
+    if c is None:
+        c = standard_c(0.0, I_max, I_star, exponent)
+    return scipy.integrate.quad(
+        lambda x: 2*x/D(x, I_star, exponent, c=c),
+        I_min,
+        I_max
+    )[0]
+
+
 def single_x(I, I_max, I_star, exponent, c):
     """Return the corresponding variable x(I)
 
