@@ -7,7 +7,7 @@ from tqdm import tqdm
 import crank_nicolson_numba.generic as cn
 import itertools
 from joblib import Parallel, delayed
-from datetime
+import datetime
 import pickle
 import argparse
 import json
