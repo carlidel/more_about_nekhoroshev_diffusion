@@ -13,7 +13,7 @@ when_to_transfer_output = ON_EXIT
 
 +JobFlavour = "tomorrow"
 
-immovable="--movable"
+immovable=--movable
 
 file=parameters_low.json
 protocol=0
@@ -31,7 +31,7 @@ queue
 protocol=2
 queue
 
-immovable="--immovable"
+immovable=--immovable
 
 file=parameters_low.json
 protocol=0
