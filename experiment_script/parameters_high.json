@@ -1,0 +1,22 @@
+{
+    "name": "low_I_a",
+
+    "I_min": 8.20,
+    "I_max": 9.0,
+    "I_damping": 8.95,
+    
+    "I_star": 10.0,
+    "k": 0.33,
+
+    "step_size": 0.01,
+    "cn_sampling": 10000,
+    "dt_sampling": 1000,
+
+    "steps_in_I" : 50,
+    "repetitions" : 10,
+    "samples": 50000,
+    "relax_samples": 500000,
+
+    "relaxing_samples" : 500000,
+    "it_per_sample" : 2
+}
