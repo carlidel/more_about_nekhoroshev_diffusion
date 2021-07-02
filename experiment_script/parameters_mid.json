@@ -1,9 +1,9 @@
 {
-    "name": "high_I_a",
+    "name": "mid_I_a",
 
-    "I_min": 8.20,
-    "I_max": 9.0,
-    "I_damping": 8.95,
+    "I_min": 5.20,
+    "I_max": 6.0,
+    "I_damping": 5.95,
     
     "I_star": 10.0,
     "k": 0.33,

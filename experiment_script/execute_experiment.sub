@@ -23,7 +23,23 @@ queue
 protocol=2
 queue
 
+file=parameters_mid.json
+protocol=0
+queue
+protocol=1
+queue
+protocol=2
+queue
+
 file=parameters_high.json
+protocol=0
+queue
+protocol=1
+queue
+protocol=2
+queue
+
+file=parameters_ultra.json
 protocol=0
 queue
 protocol=1
@@ -41,7 +57,23 @@ queue
 protocol=2
 queue
 
+file=parameters_mid.json
+protocol=0
+queue
+protocol=1
+queue
+protocol=2
+queue
+
 file=parameters_high.json
+protocol=0
+queue
+protocol=1
+queue
+protocol=2
+queue
+
+file=parameters_ultra.json
 protocol=0
 queue
 protocol=1

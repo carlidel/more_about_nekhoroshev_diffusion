@@ -1,5 +1,9 @@
 .virtual_documents/
 fig*
+*jpg
+*png
+*pkl
+.vscode/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
