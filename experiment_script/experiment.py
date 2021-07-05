@@ -235,7 +235,8 @@ if __name__ == "__main__":
 
     with open(
         "data_" + 
-        parameters["name"] + "_" + 
+        parameters["name"] + "_" +
+        (parameters["sub_name"] + "_" if "sub_name" in parameters else "") + 
         parameters["protocol_name"] +
         ("_immovable" if args.immovable else "_standard") +
         ".pkl", 'wb') as f:
