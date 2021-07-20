@@ -4,9 +4,8 @@ base_parameter = {
     "I_star": 20.0,
     "k": 0.33,
 
-    "step_size": 0.01,
     "cn_sampling": 10000,
-    "dt_sampling": 1000,
+    "dt_sampling": 5000,
 
     "steps_in_I": 50,
     "relax_samples": 500000,
@@ -30,48 +29,57 @@ for i in [50, 20, 10, 5, 4, 2, 1]:
 
 plugin_parameters = [
     {
-        "name": "lowlow_I_a_2",
+        "name": "lowlow_I_a_3",
         "I_max": 2.0,
+        "step_size": 0.001,
     },
     
     {
-        "name": "low_I_a_2",
+        "name": "low_I_a_3",
         "I_max": 4.0,
+        "step_size": 0.001,
     },
     
     {
-        "name": "avg_I_a_2",
+        "name": "avg_I_a_3",
         "I_max": 6.0,
+        "step_size": 0.01,
     },
 
     {
-        "name": "mid_I_a_2",
+        "name": "mid_I_a_3",
         "I_max": 10.0,
+        "step_size": 0.01,
     },
 
     {
-        "name": "high_I_a_2",
+        "name": "high_I_a_3",
         "I_max": 15.0,
+        "step_size": 0.01,
     },
 
     {
-        "name": "higher_I_a_2",
+        "name": "higher_I_a_3",
         "I_max": 18.0,
+        "step_size": 0.01,
     },
 
     {
-        "name": "same_I_a_2",
+        "name": "same_I_a_3",
         "I_max": 20.0,
+        "step_size": 0.01,
     },
 
     {
-        "name": "ultra_I_a_2",
+        "name": "ultra_I_a_3",
         "I_max": 25.0,
+        "step_size": 0.01,
     },
 
     {
-        "name": "over_I_a_2",
+        "name": "over_I_a_3",
         "I_max": 35.0,
+        "step_size": 0.01,
     },
 ]
 
