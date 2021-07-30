@@ -1,29 +1,24 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import scipy
 import scipy.integrate
 import scipy.interpolate
 import scipy.optimize
 from tqdm import tqdm
-import crank_nicolson_numba.generic as cn
-import itertools
-# For parallelization
-from joblib import Parallel, delayed
-from datetime import datetime
 import pickle
-import matplotlib
 import os
-import lmfit
+import re
 
 import nekhoroshev_tools as nt
-import poly_tools as pt
-import expo_tools as et
 
 DATA_PATH = "/eos/project/d/da-and-diffusion-studies/Diffusion_Studies/new_games_with_diffusion/data"
+OUT_PATH = "/afs/cern.ch/work/c/camontan/public/more_about_nekhoroshev_diffusion/data"
 
-MAGIC_NUMBER_HIGH = 1.01
-MAGIC_NUMBER_LOW = 0.99
-DISTANCE_FROM_TRUE_MAGIC = 0.002
+#DATA_PATH = "/home/camontan/moving_barrier_data"
+#OUT_PATH = "."
+
+MAGIC_NUMBER_HIGH = 1.02
+MAGIC_NUMBER_LOW = 0.98
+DISTANCE_FROM_TRUE_MAGIC = 0.005
 
 def interpolation_system(data):
     low_points_time = []
@@ -72,14 +67,117 @@ def interpolation_system(data):
     return(low_points_f, mid_points, high_points_f)
 
 
-def add_normed_current(data):
+def add_normed_current(data, imm_data):
     low_points_f, mid_points, high_points_f = interpolation_system(data)
     for i, d in enumerate(data[2]):
         if d["I_max_before"] != d["I_max_after"]:
             d["n_current"] = d["current"]/mid_points(d["t_absolute"])
             d["n_current_low"] = d["current"]/low_points_f(d["t_absolute"])
             d["n_current_high"] = d["current"]/high_points_f(d["t_absolute"])
+            # True normalized current
+            d["n_current_true"] = d["current"] / imm_data[2][i]["current"]
     return data
+
+
+def gather_avg_currents_high(data):
+    start_points = set()
+    for d in data[2]:
+        if d["I_max_before"] > d["I_max_after"]:
+            start_points.add(d["I_max_before"])
+    start_points = list(sorted(list(start_points)))
+
+    tmp_data = {
+        i: {
+            "mid": [],
+            "high": [],
+            "low": [],
+            "true": [],
+        }
+        for i in start_points
+    }
+    cur_data = {
+        i: {
+            "mid": {"avg": [], "std": []},
+            "high": {"avg": [], "std": []},
+            "low": {"avg": [], "std": []},
+            "true": {"avg": [], "std": []},
+            "time": []
+        }
+        for i in start_points
+    }
+
+    for d in data[2]:
+        if "n_current" in d and d["I_max_before"] > d["I_max_after"]:
+            tmp_data[d["I_max_before"]]["mid"].append(d["n_current"])
+            tmp_data[d["I_max_before"]]["high"].append(d["n_current_high"])
+            tmp_data[d["I_max_before"]]["low"].append(d["n_current_low"])
+            tmp_data[d["I_max_before"]]["true"].append(d["n_current_true"])
+
+            cur_data[d["I_max_before"]]["time"] = d["t_relative"]
+
+    for key in tmp_data:
+        cur_data[key]["mid"]["avg"] = np.mean(tmp_data[key]["mid"], axis=0)
+        cur_data[key]["high"]["avg"] = np.mean(tmp_data[key]["high"], axis=0)
+        cur_data[key]["low"]["avg"] = np.mean(tmp_data[key]["low"], axis=0)
+        cur_data[key]["true"]["avg"] = np.mean(tmp_data[key]["true"], axis=0)
+
+        cur_data[key]["mid"]["std"] = np.std(tmp_data[key]["mid"], axis=0)
+        cur_data[key]["high"]["std"] = np.std(tmp_data[key]["high"], axis=0)
+        cur_data[key]["low"]["std"] = np.std(tmp_data[key]["low"], axis=0)
+        cur_data[key]["true"]["std"] = np.std(tmp_data[key]["true"], axis=0)
+
+    return cur_data
+
+
+def gather_avg_currents_low(data):
+    start_points = set()
+    for d in data[2]:
+        if d["I_max_before"] < d["I_max_after"]:
+            start_points.add(d["I_max_before"])
+    start_points = list(sorted(list(start_points)))
+
+    tmp_data = {
+        i: {
+            "mid": [],
+            "high": [],
+            "low": [],
+            "true": [],
+        }
+        for i in start_points
+    }
+    cur_data = {
+        i: {
+            "mid": {"avg": [], "std": []},
+            "high": {"avg": [], "std": []},
+            "low": {"avg": [], "std": []},
+            "true": {"avg": [], "std": []},
+            "time": []
+        }
+        for i in start_points
+    }
+
+    for d in data[2]:
+        if "n_current" in d and d["I_max_before"] < d["I_max_after"]:
+            tmp_data[d["I_max_before"]]["mid"].append(d["n_current"])
+            tmp_data[d["I_max_before"]]["high"].append(d["n_current_high"])
+            tmp_data[d["I_max_before"]]["low"].append(d["n_current_low"])
+            tmp_data[d["I_max_before"]]["true"].append(d["n_current_true"])
+    
+            cur_data[d["I_max_before"]]["time"] = d["t_relative"]
+
+
+    for key in tmp_data:
+        cur_data[key]["mid"]["avg"] = np.mean(tmp_data[key]["mid"], axis=0)
+        cur_data[key]["high"]["avg"] = np.mean(tmp_data[key]["high"], axis=0)
+        cur_data[key]["low"]["avg"] = np.mean(tmp_data[key]["low"], axis=0)
+        cur_data[key]["true"]["avg"] = np.mean(tmp_data[key]["true"], axis=0)
+
+        cur_data[key]["mid"]["std"] = np.std(tmp_data[key]["mid"], axis=0)
+        cur_data[key]["high"]["std"] = np.std(tmp_data[key]["high"], axis=0)
+        cur_data[key]["low"]["std"] = np.std(tmp_data[key]["low"], axis=0)
+        cur_data[key]["true"]["std"] = np.std(tmp_data[key]["true"], axis=0)
+
+    return cur_data
 
 
 def extract_values_high(data, magic_number_high):
@@ -89,7 +187,12 @@ def extract_values_high(data, magic_number_high):
             start_points.add(d["I_max_before"])
     start_points = list(sorted(list(start_points)))
     high_data = {
-        i: {"mid": [], "low": [], "high": []}
+        i: {
+            "mid": [],
+            "low": [],
+            "high": [],
+            "true": [],
+        }
         for i in start_points
     }
     for d in data[2]:
@@ -108,6 +211,11 @@ def extract_values_high(data, magic_number_high):
             high_data[d["I_max_before"]]["high"].append(
                 d["t_relative"][temp]
             )
+            temp = np.argmin(np.absolute(
+                magic_number_high - d["n_current_true"]))
+            high_data[d["I_max_before"]]["true"].append(
+                d["t_relative"][temp]
+            )
     return high_data
 
 
@@ -118,7 +226,12 @@ def extract_values_low(data, magic_number_low):
             start_points.add(d["I_max_before"])
     start_points = list(sorted(list(start_points)))
     low_data = {
-        i: {"mid": [], "low": [], "high": []}
+        i: {
+            "mid": [],
+            "low": [],
+            "high": [],
+            "true": []
+        }
         for i in start_points
     }
     for d in data[2]:
@@ -135,6 +248,11 @@ def extract_values_low(data, magic_number_low):
             temp = np.argmin(np.absolute(
                 magic_number_low - d["n_current_high"]))
             low_data[d["I_max_before"]]["high"].append(
+                d["t_relative"][temp]
+            )
+            temp = np.argmin(np.absolute(
+                magic_number_low - d["n_current_true"]))
+            low_data[d["I_max_before"]]["true"].append(
                 d["t_relative"][temp]
             )
     return low_data
@@ -277,14 +395,19 @@ if __name__ == "__main__":
     
     files = list(sorted(os.listdir(DATA_PATH)))
     
-    for f in tqdm(list(filter(lambda f: "I_a_3" in f and "immovable" not in f, files))):
+    for f in tqdm(list(filter(lambda f: "I_a_3" in f and "immovable" not in f and "high_avg" not in f and "low_avg" not in f, files))):
         print("Processing", f)
+        f_imm = re.sub("standard", "immovable", f)
+        print("Immovable file is", f_imm)
+
         version, protocol, I_a_position, repetitions = decompose_filename(f)
 
-        with open(os.path.join(DATA_PATH, f), 'rb') as f:
-            data = pickle.load(f)
-        
-        data = add_normed_current(data)
+        with open(os.path.join(DATA_PATH, f), 'rb') as file:
+            data = pickle.load(file)      
+        with open(os.path.join(DATA_PATH, f_imm), 'rb') as file:
+            imm_data = pickle.load(file)
+
+        data = add_normed_current(data, imm_data)
 
         if protocol not in processed_data:
             processed_data[protocol] = {}
@@ -306,7 +429,7 @@ if __name__ == "__main__":
 
         processed_data[protocol][I_a_position][repetitions]["main_info"] = data[0]
 
-        for i, key in enumerate(magic_high):
+        for i, key in tqdm(list(enumerate(magic_high))):
             extracted_data = extract_values_high(data, magic_high[key])
             meta_data = make_meta_high(data, extracted_data, magic_high[key])
 
@@ -324,7 +447,7 @@ if __name__ == "__main__":
             "low_true+delta": true_magic_low + DISTANCE_FROM_TRUE_MAGIC,
         }
 
-        for i, key in enumerate(magic_low):
+        for i, key in tqdm(list(enumerate(magic_low))):
             extracted_data = extract_values_low(data, magic_low[key])
             meta_data = make_meta_low(data, extracted_data, magic_low[key])
 
@@ -333,5 +456,19 @@ if __name__ == "__main__":
             processed_data[protocol][I_a_position][repetitions][key]["extracted"] = extracted_data
             processed_data[protocol][I_a_position][repetitions][key]["processed"] = meta_data
 
-with open("processed_evolution.pkl", 'wb') as f:
-    pickle.dump(processed_data, f)
+        print("Extracting the averages...")
+
+        avg_data_high = gather_avg_currents_high(data)
+        avg_data_low = gather_avg_currents_low(data)
+
+        print("Saving high...")
+        with open(os.path.join(OUT_PATH, f[:-4] + "_high_avg.pkl"), 'wb') as file:
+            pickle.dump(avg_data_high, file)
+
+        print("Saving low...")
+        with open(os.path.join(OUT_PATH, f[:-4] + "_low_avg.pkl"), 'wb') as file:
+            pickle.dump(avg_data_low, file)
+
+    with open(os.path.join(OUT_PATH, "processed_evolution.pkl"), 'wb') as file:
+        print("Saving...")
+        pickle.dump(processed_data, file)
