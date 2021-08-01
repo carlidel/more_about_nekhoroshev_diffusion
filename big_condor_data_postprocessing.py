@@ -456,18 +456,18 @@ if __name__ == "__main__":
             processed_data[protocol][I_a_position][repetitions][key]["extracted"] = extracted_data
             processed_data[protocol][I_a_position][repetitions][key]["processed"] = meta_data
 
-        print("Extracting the averages...")
+        # print("Extracting the averages...")
 
-        avg_data_high = gather_avg_currents_high(data)
-        avg_data_low = gather_avg_currents_low(data)
+        # avg_data_high = gather_avg_currents_high(data)
+        # avg_data_low = gather_avg_currents_low(data)
 
-        print("Saving high...")
-        with open(os.path.join(OUT_PATH, f[:-4] + "_high_avg.pkl"), 'wb') as file:
-            pickle.dump(avg_data_high, file)
+        # print("Saving high...")
+        # with open(os.path.join(OUT_PATH, f[:-4] + "_high_avg.pkl"), 'wb') as file:
+        #     pickle.dump(avg_data_high, file)
 
-        print("Saving low...")
-        with open(os.path.join(OUT_PATH, f[:-4] + "_low_avg.pkl"), 'wb') as file:
-            pickle.dump(avg_data_low, file)
+        # print("Saving low...")
+        # with open(os.path.join(OUT_PATH, f[:-4] + "_low_avg.pkl"), 'wb') as file:
+        #     pickle.dump(avg_data_low, file)
 
     with open(os.path.join(OUT_PATH, "processed_evolution.pkl"), 'wb') as file:
         print("Saving...")
