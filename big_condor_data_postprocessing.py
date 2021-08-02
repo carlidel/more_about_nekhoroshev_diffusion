@@ -266,6 +266,8 @@ def make_meta_high(data, point_data, magic_value):
     std_low = []
     avg_high = []
     std_high = []
+    avg_true = []
+    std_true = []
     afpt = []
     for key in point_data:
         val.append(key)
@@ -278,6 +280,9 @@ def make_meta_high(data, point_data, magic_value):
 
         avg_high.append(np.average(point_data[key]["high"]))
         std_high.append(np.std(point_data[key]["high"]))
+
+        avg_high.append(np.average(point_data[key]["true"]))
+        std_high.append(np.std(point_data[key]["true"]))
 
         afpt.append(
             nt.afpt(
@@ -297,6 +302,8 @@ def make_meta_high(data, point_data, magic_value):
         "std_low": np.asarray(std_low),
         "avg_high": np.asarray(avg_high),
         "std_high": np.asarray(std_high),
+        "avg_true": np.asarray(avg_true),
+        "std_true": np.asarray(std_true),
         "afpt": np.asarray(afpt),
     }
 
@@ -309,6 +316,8 @@ def make_meta_low(data, point_data, magic_value):
     std_low = []
     avg_high = []
     std_high = []
+    avg_true = []
+    std_true = []
     afpt = []
     for key in point_data:
         val.append(key)
@@ -321,6 +330,9 @@ def make_meta_low(data, point_data, magic_value):
 
         avg_high.append(np.average(point_data[key]["high"]))
         std_high.append(np.std(point_data[key]["high"]))
+
+        avg_high.append(np.average(point_data[key]["true"]))
+        std_high.append(np.std(point_data[key]["true"]))
 
         afpt.append(
             nt.afpt(
@@ -340,6 +352,8 @@ def make_meta_low(data, point_data, magic_value):
         "std_low": np.asarray(std_low),
         "avg_high": np.asarray(avg_high),
         "std_high": np.asarray(std_high),
+        "avg_true": np.asarray(avg_true),
+        "std_true": np.asarray(std_true),
         "afpt": np.asarray(afpt),
     }
 
