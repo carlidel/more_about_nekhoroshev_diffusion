@@ -281,8 +281,8 @@ def make_meta_high(data, point_data, magic_value):
         avg_high.append(np.average(point_data[key]["high"]))
         std_high.append(np.std(point_data[key]["high"]))
 
-        avg_high.append(np.average(point_data[key]["true"]))
-        std_high.append(np.std(point_data[key]["true"]))
+        avg_true.append(np.average(point_data[key]["true"]))
+        std_true.append(np.std(point_data[key]["true"]))
 
         afpt.append(
             nt.afpt(
@@ -331,8 +331,8 @@ def make_meta_low(data, point_data, magic_value):
         avg_high.append(np.average(point_data[key]["high"]))
         std_high.append(np.std(point_data[key]["high"]))
 
-        avg_high.append(np.average(point_data[key]["true"]))
-        std_high.append(np.std(point_data[key]["true"]))
+        avg_true.append(np.average(point_data[key]["true"]))
+        std_true.append(np.std(point_data[key]["true"]))
 
         afpt.append(
             nt.afpt(
@@ -409,7 +409,12 @@ if __name__ == "__main__":
     
     files = list(sorted(os.listdir(DATA_PATH)))
     
-    for f in tqdm(list(filter(lambda f: "I_a_3" in f and "immovable" not in f and "high_avg" not in f and "low_avg" not in f, files))):
+    for f in tqdm(list(filter(lambda f: 
+            "I_a_3" in f 
+            and "immovable" not in f 
+            and "high_avg" not in f 
+            and "low_avg" not in f
+            and "steady_tip-tap" in f, files))):
         print("Processing", f)
         f_imm = re.sub("standard", "immovable", f)
         print("Immovable file is", f_imm)
@@ -483,6 +488,6 @@ if __name__ == "__main__":
         # with open(os.path.join(OUT_PATH, f[:-4] + "_low_avg.pkl"), 'wb') as file:
         #     pickle.dump(avg_data_low, file)
 
-    with open(os.path.join(OUT_PATH, "processed_evolution.pkl"), 'wb') as file:
+    with open(os.path.join(OUT_PATH, "processed_evolution_tiptap_only.pkl"), 'wb') as file:
         print("Saving...")
         pickle.dump(processed_data, file)
