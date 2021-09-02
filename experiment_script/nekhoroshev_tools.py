@@ -71,7 +71,27 @@ def afpt(I_min, I_max, I_star, exponent, c=None):
                 I_max
             )[0] for i in I_min
         ])
-            
+
+
+def stationary_dist(I_min, I_max, I_star, exponent, c=None):
+    if c is None:
+        c = standard_c(0.0, I_max, I_star, exponent)
+
+    if not hasattr(I_min, "__iter__"):
+        return scipy.integrate.quad(
+            lambda x: 1/D(x, I_star, exponent, c=c),
+            I_min,
+            I_max
+        )[0]
+    else:
+        return np.array([
+            scipy.integrate.quad(
+                lambda x: 1/D(x, I_star, exponent, c=c),
+                i,
+                I_max
+            )[0] for i in I_min
+        ])
+
 
 def single_x(I, I_max, I_star, exponent, c):
     """Return the corresponding variable x(I)

@@ -64,6 +64,27 @@ def p2(step_size, samples, relax_samples, it_per_sample, steps_in_I, repetitions
     return p_relax(relax_samples, it_per_sample) + temp
 
 
+def p2_reverse(step_size, samples, relax_samples, it_per_sample, steps_in_I, repetitions):
+    temp = []
+
+    for i in range(steps_in_I):
+        for j in range(repetitions):
+            temp.append(
+                {"movement": "backward", "amount": step_size, "samples": samples,
+                    "it_per_sample": it_per_sample, "label": i, "sub_label": j}
+            )
+            temp.append(
+                {"movement": "forward", "amount": step_size, "samples": samples,
+                    "it_per_sample": it_per_sample, "label": i, "sub_label": j}
+            )
+        temp.append(
+            {"movement": "backward", "amount": step_size, "samples": samples,
+                "it_per_sample": it_per_sample, "label": i, "sub_label": "final"}
+        )
+
+    return p_relax(relax_samples, it_per_sample) + temp
+
+
 def p3(step_size, samples, relax_samples, it_per_sample, steps_in_I, repetitions):
     temp = []
 
@@ -87,11 +108,17 @@ def p3(step_size, samples, relax_samples, it_per_sample, steps_in_I, repetitions
     
     return p_relax(relax_samples, it_per_sample) + temp
 
-p_list = [p1, p2, p3]
+#p_list = [p1, p2, p3]
+#p_name_list = [
+#    "the_long_ladder",
+#    "the_steady_tip-tap",
+#    "the_increasing_jumps"
+#]
+
+p_list = [p2, p2_reverse]
 p_name_list = [
-    "the_long_ladder",
     "the_steady_tip-tap",
-    "the_increasing_jumps"
+    "the_steady_tip-tap_reverse"
 ]
 
 ################################################################################
@@ -150,13 +177,15 @@ def perform_experiment(parameters, movement_list, immovable=False):
             data["I_max_after"] = engine.I_max
             data["I_max_low"] = engine.I_max
 
-        time, current = engine.current(move["samples"], move["it_per_sample"])
+        time, current, current_ana = engine.double_kind_current(
+            move["samples"], move["it_per_sample"])
 
         data["t_absolute"] = time
         data["t_relative"] = time - absolute_time
         absolute_time = time[-1]
 
         data["current"] = current
+        data["current_ana"] = current_ana
 
         data_list.append(data)
     return data_list
@@ -166,7 +195,7 @@ def perform_experiment(parameters, movement_list, immovable=False):
 ######   MAIN   ################################################################
 ################################################################################
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
@@ -179,7 +208,7 @@ if __name__ == "__main__":
     parser.add_argument(
         'protocol_index',
         type=int,
-        help='JSON filepath with values to use'
+        help='index of the protocol to use'
     )
 
     parser.add_argument('-i',
@@ -244,3 +273,7 @@ if __name__ == "__main__":
             (parameters, movement_list, data),
             f
         )
+
+
+if __name__ == "__main__":
+    main()
