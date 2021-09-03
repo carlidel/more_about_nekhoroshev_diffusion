@@ -410,7 +410,10 @@ def decompose_filename(filename):
     return (version, protocol, I_a_position, repetitions)
 
 
-def main():
+def main(DATA_PATH="/eos/project/d/da-and-diffusion-studies/Diffusion_Studies/new_games_with_diffusion/data",
+         OUT_PATH="/afs/cern.ch/work/c/camontan/public/more_about_nekhoroshev_diffusion/data",
+         DATA_PATH_LOCAL="/home/camontan/moving_barrier_data",
+         OUT_PATH_LOCAL="/home/camontan/moving_barrier_data"):
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '-l',
