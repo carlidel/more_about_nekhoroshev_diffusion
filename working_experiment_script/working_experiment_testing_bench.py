@@ -161,7 +161,7 @@ for I_max, t_max in zip(I_max_list, times):
             ]
             parameters["I_sampling"] = I_sampling
             parameters["t_sampling"] = t_sampling
-            parameters["time_interval"] = t_max
+            parameters["time_interval"] = t_max / fraction
             parameters["I_star"] = I_star
             parameters["exponent"] = exponent
             parameters["c"] = nt.standard_c(0.0, I_max, I_star, exponent)
