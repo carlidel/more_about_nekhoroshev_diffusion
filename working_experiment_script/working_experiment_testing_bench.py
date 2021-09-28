@@ -170,6 +170,7 @@ for I_max, t_max in zip(I_max_list, times):
             parameters["n_1_step"] = n_1_step
             parameters["n_1_samp"] = n_1_samp
             parameters["ana_samples"] = ana_samples
+            parameters["fraction_in_usage"] = fraction
 
             name = "Imax_{:.2f}_Istep_{:.2f}_fraction_{:.3f}".format(
                 I_max, I_step, fraction)
