@@ -43,7 +43,7 @@ def current_estimate_forward(I_min, I_max, I_star, exponent, c, t):
         if hasattr(x, "__iter__"):
             y = np.empty_like(x)
             for i, e in enumerate(x):
-                y[i] = -module if e <= I_min else module *                     (((e - I_min) / (I_max - I_min)) - 1)
+                y[i] = -module if e <= I_min else module * (((e - I_min) / (I_max - I_min)) - 1)
             return y
         if x <= I_min:
             return - module
@@ -66,8 +66,8 @@ kappa = 0.33
 exponent = 1 / (2 * kappa)
 
 I_max_list = np.arange(0.2, 1.5, 0.1) * I_star
-I_step_list = np.array([0.01, 0.005, 0.02]) * I_star
-fraction_list = np.array([1.0, 0.5, 0.01, 0.001])
+I_step_list = np.array([0.01, 0.005, 0.05, 0.001]) * I_star
+fraction_list = np.array([0.5, 0.1, 0.05, 0.01, 0.005, 0.001])
 
 I_step = I_step_list[0]
 
@@ -161,7 +161,7 @@ for I_max, t_max in zip(I_max_list, times):
             ]
             parameters["I_sampling"] = I_sampling
             parameters["t_sampling"] = t_sampling
-            parameters["time_interval"] = t_max / fraction
+            parameters["time_interval"] = t_max * fraction
             parameters["I_star"] = I_star
             parameters["exponent"] = exponent
             parameters["c"] = nt.standard_c(0.0, I_max, I_star, exponent)
