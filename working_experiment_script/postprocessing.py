@@ -1,8 +1,5 @@
 import pickle
 import numpy as np
-import matplotlib
-import matplotlib.pyplot as plt
-from matplotlib import gridspec
 import scipy
 import scipy.integrate
 import scipy.interpolate
@@ -184,15 +181,18 @@ if __name__ == "__main__":
                 backward_flag=backward_flag
             )
         
-            parameters = lmfit.Parameters()
-            parameters.add("I_star", value=parameters["I_star"], vary=True, min=0.1)
-            parameters.add("k", value=1 / parameters["exponent"] / 2, vary=True, min=0.0)
-            parameters.add("c", value=parameters["c"], vary=False)
+            fit_parameters = lmfit.Parameters()
+            fit_parameters.add(
+                "I_star", value=parameters["I_star"], vary=True, min=0.1)
+            fit_parameters.add(
+                "k", value=1 / parameters["exponent"] / 2, vary=True, min=0.0)
+            fit_parameters.add(
+                "c", value=parameters["c"], vary=False)
             
             try:
                 result = lmfit.minimize(
                     resid_func,
-                    parameters,
+                    fit_parameters,
                     args=(x_list, y_list)
                 )
             except Exception as e:
