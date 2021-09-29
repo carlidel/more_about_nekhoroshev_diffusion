@@ -153,15 +153,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     FILE = args.input_data
-
-    subprocess.run([
-        "eos",
-        "cp",
-        FILE,
-        "./data.pkl"
-    ])
     
-    with open("data.pkl", 'rb') as f:
+    with open(os.path.join(PATH, FILE), 'rb') as f:
         parameters, data = pickle.load(f)
 
     data['interpolation'] = interpolation_system(data["global"]["mov"])[1]
@@ -221,12 +214,12 @@ if __name__ == "__main__":
         }
     }
 
-    with open(os.path.join(PATH, "FIT_" + os.path.basename(FILE)), 'wb') as f:
+    with open("FIT_" + os.path.basename(FILE), 'wb') as f:
         pickle.dump(container, f)
 
     subprocess.run([
         "eos",
         "cp",
-        "FIT_" + os.path.basename(FILE),
+        "*pkl",
         "/eos/project/d/da-and-diffusion-studies/Diffusion_Studies/new_games_with_diffusion/data"
     ])
