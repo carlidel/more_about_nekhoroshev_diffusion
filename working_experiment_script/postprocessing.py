@@ -8,6 +8,7 @@ import crank_nicolson_numba.generic as cn
 import itertools
 import os
 import multiprocessing
+import subprocess
 import json
 import argparse
 # For parallelization
@@ -18,7 +19,8 @@ import nekhoroshev_tools as nt
 
 NCORES = multiprocessing.cpu_count()
 FRACTION_LIST_BEFORE = np.array([0.0, 0.001, 0.01])
-FRACTION_LIST_AFTER = np.array([1.0, 0.5, 0.1, 0.05, 0.01, 0.005, 0.001])
+FRACTION_LIST_AFTER = np.array([0.1, 0.05, 0.01, 0.005, 0.001])
+PATH = "/eos/project-d/da-and-diffusion-studies/Diffusion_Studies/new_games_with_diffusion/data"
 
 def interpolation_system(data_list):
     t_low = np.array([])
@@ -110,7 +112,9 @@ def resid_func(params, x_list, y_list):
                     (x[2] / 3) * 2, I_star, exponent, c
                 )
             )
-            return (y - ana_current) / y
+            y_den = y.copy()
+            y_den[y_den == 0.0] = 1.0
+            return (y - ana_current) / y_den
         elif x[0] == "forward":
             module = nt.stationary_dist(
                 x[1], x[2], I_star, exponent, c) * 2
@@ -123,7 +127,9 @@ def resid_func(params, x_list, y_list):
                     I_star, exponent, c
                 )
             )
-            return (y - ana_current) / y
+            y_den = y.copy()
+            y_den[y_den == 0.0] = 1.0
+            return (y - ana_current) / y_den
 
     blocks = Parallel(NCORES)(delayed(compare)(x, y)
                               for x, y in zip(x_list, y_list))
@@ -146,10 +152,16 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    PATH = "/eos/project-d/da-and-diffusion-studies/Diffusion_Studies/new_games_with_diffusion/data"
     FILE = args.input_data
+
+    subprocess.run([
+        "eos",
+        "cp",
+        FILE,
+        "./data.pkl"
+    ])
     
-    with open(os.path.join(PATH, FILE), 'rb') as f:
+    with open("data.pkl", 'rb') as f:
         parameters, data = pickle.load(f)
 
     data['interpolation'] = interpolation_system(data["global"]["mov"])[1]
@@ -164,23 +176,23 @@ if __name__ == "__main__":
     fit_methods = [
         ("all", True, True),
         ("forward_only", True, False),
-        ("backward_only", False, True),
+#        ("backward_only", False, True),
     ]
 
     for fraction_before, fraction_after in tqdm(frac_list):
+        print((fraction_before, fraction_after))
         pd[(fraction_before, fraction_after)] = {}
         for method, forward_flag, backward_flag in fit_methods:
-            
+            print(method)
             x_list, y_list = pre_fit_sampler(
                 data,
                 parameters["movement_list"][-1]["mov"],
                 fraction_before=fraction_before,
                 fraction_after=fraction_after,
-                samples=20,
+                samples=10,
                 forward_flag=forward_flag,
                 backward_flag=backward_flag
             )
-        
             fit_parameters = lmfit.Parameters()
             fit_parameters.add(
                 "I_star", value=parameters["I_star"], vary=True, min=0.1)
@@ -196,6 +208,7 @@ if __name__ == "__main__":
                     args=(x_list, y_list)
                 )
             except Exception as e:
+                print("FAILED!")
                 result = "FAILED!"
 
             pd[(fraction_before, fraction_after)][method] = result
@@ -208,5 +221,12 @@ if __name__ == "__main__":
         }
     }
 
-    with open(os.path.join(PATH, "FIT_" + FILE), 'wb') as f:
+    with open(os.path.join(PATH, "FIT_" + os.path.basename(FILE)), 'wb') as f:
         pickle.dump(container, f)
+
+    subprocess.run([
+        "eos",
+        "cp",
+        "FIT_" + os.path.basename(FILE),
+        "/eos/project/d/da-and-diffusion-studies/Diffusion_Studies/new_games_with_diffusion/data"
+    ])
