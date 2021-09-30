@@ -209,7 +209,7 @@ if __name__ == "__main__":
     container = {
         parameters["I_max"]: {
             parameters["movement_list"][-1]["mov"]: {
-                parameters["fraction"]: pd
+                parameters["fraction_in_usage"]: pd
             }
         }
     }
