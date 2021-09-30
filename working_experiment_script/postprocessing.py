@@ -3,7 +3,7 @@ import numpy as np
 import scipy
 import scipy.integrate
 import scipy.interpolate
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 import crank_nicolson_numba.generic as cn
 import itertools
 import os
