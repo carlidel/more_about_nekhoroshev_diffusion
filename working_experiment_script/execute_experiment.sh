@@ -10,6 +10,6 @@ export PATH=$MYPYTHON/bin:$PATH
 
 which python
 
-python3 experiment.py $1
+python3 experiment.py $1 --no-stationary
 
 eos cp *.pkl /eos/project/d/da-and-diffusion-studies/Diffusion_Studies/new_games_with_diffusion/data

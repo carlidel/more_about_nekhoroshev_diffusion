@@ -1,6 +1,3 @@
-# To add a new cell, type '# %%'
-# To add a new markdown cell, type '# %% [markdown]'
-# %%
 import pickle
 import numpy as np
 import matplotlib
@@ -21,8 +18,6 @@ import json
 import lmfit
 import nekhoroshev_tools as nt
 
-
-# %%
 def current_estimate_backward(I_min, I_max, I_star, exponent, c, t):
     module = nt.stationary_dist(I_min, I_max, I_star, exponent, c) * 2
     ana_current = np.asarray(
@@ -34,7 +29,6 @@ def current_estimate_backward(I_min, I_max, I_star, exponent, c, t):
     return ana_current
 
 
-# %%
 def current_estimate_forward(I_min, I_max, I_star, exponent, c, t):
     module = nt.stationary_dist(
         I_min, I_max, I_star, exponent, c) * 2
@@ -57,17 +51,13 @@ def current_estimate_forward(I_min, I_max, I_star, exponent, c, t):
     )
     return ana_current
 
-# %% [markdown]
-# ## Experiment Parameters
-
-# %%
 I_star = 20.0
 kappa = 0.33
 exponent = 1 / (2 * kappa)
 
-I_max_list = np.arange(0.2, 1.5, 0.1) * I_star
+I_max_list = np.linspace(0.2, 1.5, 14) * I_star
 I_step_list = np.array([0.01, 0.005, 0.05, 0.001]) * I_star
-fraction_list = np.array([0.5, 0.1, 0.05, 0.01, 0.005, 0.001])
+fraction_list = np.array([1.0, 0.5, 0.1, 0.05, 0.01, 0.005, 0.001])
 
 I_step = I_step_list[0]
 
@@ -81,7 +71,6 @@ n_1_samp = 1
 ana_samples = 500
 
 
-# %%
 def f(x, I_max):
     c = nt.standard_c(0.0, I_max, I_star, exponent)
     cur = np.absolute(
@@ -89,29 +78,13 @@ def f(x, I_max):
             I_max - I_step, I_max, I_star, exponent, c, x
         )
     )
-    return np.absolute(cur - 2e-3)
-
-
-# %%
-point = 2e-3
+    return np.absolute(cur - 5e-3)
 
 times = []
 for I_max in tqdm(I_max_list):
     sol = scipy.optimize.minimize(f, 1.0, I_max)
     times.append(sol.x[0])
 
-
-# %%
-t = np.logspace(-5, 5, 21)
-curs = []
-for I_max in tqdm(I_max_list):
-    c = nt.standard_c(0.0, I_max, I_star, exponent)
-    curs.append(np.absolute(current_estimate_forward(
-        I_max - I_step, I_max, I_star, exponent, c, t
-    )))
-
-
-# %%
 with open("base_experiment.sub", 'r') as f:
     base_experiment = f.read()
 
@@ -126,6 +99,7 @@ for I_max, t_max in zip(I_max_list, times):
             parameters = {}
             parameters["I_min"] = 3.5
             parameters["I_max"] = I_max
+            parameters["I_step"] = I_step
             parameters["movement_list"] = [
                 {"kind": "still"},
                 {"kind": "forward", "mov": I_step},
@@ -184,5 +158,3 @@ for I_max, t_max in zip(I_max_list, times):
 
 with open("execute_experiment.sub", 'w') as f:
     f.write(base_experiment)
-
-

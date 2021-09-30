@@ -29,7 +29,8 @@ def experiment_routine(
     n_0_samp,
     n_1_step,
     n_1_samp,
-    ana_samples
+    ana_samples,
+    stationary_flag=True
 ):
     I_max_0 = I_max
     I_max_old = I_max
@@ -80,26 +81,27 @@ def experiment_routine(
     )
 
     def current(step, samp, kind, I_step=np.nan):
-        rho_s_imm = engine_s_imm.get_data_with_x()
-        t_s_imm, c_s_imm = engine_s_imm.analytical_current(
-            step, samp)
-        data["stationary"]["imm"].append({
-            "rho_before": rho_s_imm,
-            "t_abs": t_s_imm,
-            "cur": c_s_imm,
-            "kind": kind,
-            "I_step": I_step
-        })
-        rho_s_mov = engine_s_mov.get_data_with_x()
-        t_s_mov, c_s_mov = engine_s_mov.analytical_current(
-            step, samp)
-        data["stationary"]["mov"].append({
-            "rho_before": rho_s_mov,
-            "t_abs": t_s_mov,
-            "cur": c_s_mov,
-            "kind": kind,
-            "I_step": I_step
-        })
+        if stationary_flag:
+            rho_s_imm = engine_s_imm.get_data_with_x()
+            t_s_imm, c_s_imm = engine_s_imm.analytical_current(
+                step, samp)
+            data["stationary"]["imm"].append({
+                "rho_before": rho_s_imm,
+                "t_abs": t_s_imm,
+                "cur": c_s_imm,
+                "kind": kind,
+                "I_step": I_step
+            })
+            rho_s_mov = engine_s_mov.get_data_with_x()
+            t_s_mov, c_s_mov = engine_s_mov.analytical_current(
+                step, samp)
+            data["stationary"]["mov"].append({
+                "rho_before": rho_s_mov,
+                "t_abs": t_s_mov,
+                "cur": c_s_mov,
+                "kind": kind,
+                "I_step": I_step
+            })
         rho_g_imm = engine_g_imm.get_data_with_x()
         t_g_imm, c_g_imm = engine_g_imm.analytical_current(
             step, samp)
@@ -122,19 +124,20 @@ def experiment_routine(
         })
 
     def catalog():
-        data["stationary"]["imm"][-1]["I_max"] = engine_s_imm.I_max
-        data["stationary"]["imm"][-1]["rho"] = engine_s_imm.get_data_with_x()
-        data["stationary"]["imm"][-1]["t_rel"] = (
-            data["stationary"]["imm"][-1]["t_abs"]
-            - data["stationary"]["imm"][-1]["t_abs"][0]
-        )
+        if stationary_flag:
+            data["stationary"]["imm"][-1]["I_max"] = engine_s_imm.I_max
+            data["stationary"]["imm"][-1]["rho"] = engine_s_imm.get_data_with_x()
+            data["stationary"]["imm"][-1]["t_rel"] = (
+                data["stationary"]["imm"][-1]["t_abs"]
+                - data["stationary"]["imm"][-1]["t_abs"][0]
+            )
 
-        data["stationary"]["mov"][-1]["I_max"] = engine_s_mov.I_max
-        data["stationary"]["mov"][-1]["rho"] = engine_s_mov.get_data_with_x()
-        data["stationary"]["mov"][-1]["t_rel"] = (
-            data["stationary"]["mov"][-1]["t_abs"]
-            - data["stationary"]["mov"][-1]["t_abs"][0]
-        )
+            data["stationary"]["mov"][-1]["I_max"] = engine_s_mov.I_max
+            data["stationary"]["mov"][-1]["rho"] = engine_s_mov.get_data_with_x()
+            data["stationary"]["mov"][-1]["t_rel"] = (
+                data["stationary"]["mov"][-1]["t_abs"]
+                - data["stationary"]["mov"][-1]["t_abs"][0]
+            )
 
         data["global"]["imm"][-1]["I_max"] = engine_g_imm.I_max
         data["global"]["imm"][-1]["rho"] = engine_g_imm.get_data_with_x()
@@ -158,7 +161,8 @@ def experiment_routine(
 
         elif mov["kind"] == "forward":
             I_max = I_max_old + mov["mov"]
-            engine_s_mov.move_barrier_forward(mov["mov"], resample=True)
+            if stationary_flag:
+                engine_s_mov.move_barrier_forward(mov["mov"], resample=True)
             engine_g_mov.move_barrier_forward(mov["mov"], resample=True)
             current(n_1_step, n_1_samp, "forward", mov["mov"])
             catalog()
@@ -203,7 +207,8 @@ def experiment_routine(
 
         elif mov["kind"] == "backward":
             I_max = I_max_old - mov["mov"]
-            engine_s_mov.move_barrier_backward(mov["mov"], resample=True)
+            if stationary_flag:
+                engine_s_mov.move_barrier_backward(mov["mov"], resample=True)
             engine_g_mov.move_barrier_backward(mov["mov"], resample=True)
             current(n_1_step, n_1_samp, "backward", mov["mov"])
             catalog()
@@ -246,6 +251,10 @@ if __name__ == "__main__":
         type=str,
         help='JSON filepath with values to use'
     )
+    parser.add_argument('--stationary', dest='stationary', action='store_true')
+    parser.add_argument('--no-stationary', dest='stationary', action='store_false')
+    parser.set_defaults(stationary=True)
+
     args = parser.parse_args()
 
     with open(args.input_json, 'r') as f:
@@ -269,6 +278,7 @@ if __name__ == "__main__":
         parameters["n_1_step"],
         parameters["n_1_samp"],
         parameters["ana_samples"],
+        args.stationary
     )
 
     end = datetime.datetime.now()
