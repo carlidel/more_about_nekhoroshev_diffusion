@@ -13,3 +13,5 @@ which python
 python3 postprocessing.py $1 $2 $3 $4 $5
 
 eos cp *.pkl /eos/project/d/da-and-diffusion-studies/Diffusion_Studies/new_games_with_diffusion/data
+
+rm *.pkl
