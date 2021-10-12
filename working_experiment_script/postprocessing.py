@@ -22,8 +22,7 @@ from working_experiment_functions import *
 UPPER_BOUNDS = np.array([1.0])
 LOWER_BOUNDS = np.array([0.1, 0.01, 0.001])
 
-#PATH = "/eos/project-d/da-and-diffusion-studies/Diffusion_Studies/new_games_with_diffusion/data"
-PATH = "."
+PATH = "/eos/project-d/da-and-diffusion-studies/Diffusion_Studies/new_games_with_diffusion/data"
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
