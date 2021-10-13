@@ -1,9 +1,27 @@
 import os
 import numpy as np
+import re
 
 PATH = "/eos/project-d/da-and-diffusion-studies/Diffusion_Studies/new_games_with_diffusion/data"
 
 CHECK_PRESENCE = True
+
+PARTIAL = True
+PARTIAL_LIST = [1, 2, 5, 10, 15]
+
+def get_file_pars(file):
+    elements = [float(x) for x in re.findall(r"\d+\.\d+", file)]
+    return elements
+
+
+def selector(file):
+    I_max, I_step, fraction = get_file_pars(file)
+    return (
+        (I_max == 8.0) and
+        (I_step == 0.1) and
+        (fraction == 0.5)
+    )
+
 
 files = list(filter(lambda x: "working" in x, os.listdir(PATH)))
 all_files = os.listdir(PATH)
@@ -14,6 +32,12 @@ high_bound = [np.inf, 1.0]
 with open("file_list.txt", 'w') as out:
     for f in files:
         print(os.path.join(PATH, f))
+        
+        if not selector(f):
+            print("Discarded")
+            continue
+        print("Kept")
+
         for l in low_bound:
             for bb, fb in [(True, True), (True, False), (False, True)]:
                 
@@ -69,4 +93,16 @@ with open("file_list.txt", 'w') as out:
                             ("--forward " if fb else "--no-forward ") +
                             "\n"
                         )
+
+                    if PARTIAL:
+                        for P in PARTIAL_LIST:
+                            out.write(
+                                str(os.path.join(PATH, f)) + " " +
+                                str(h) + " " +
+                                str(l) + " " +
+                                ("--backward " if bb else "--no-backward ") +
+                                ("--forward " if fb else "--no-forward ") +
+                                ("--partial " + str(P)) +
+                                "\n"
+                            )
 

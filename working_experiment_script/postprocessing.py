@@ -47,6 +47,8 @@ if __name__ == "__main__":
     parser.add_argument('--no-forward', dest='forward', action='store_false')
     parser.set_defaults(forward=True)
 
+    parser.add_argument('--partial', type=int, default=-1)
+
     args = parser.parse_args()
 
     FILE = args.input_data
@@ -55,6 +57,7 @@ if __name__ == "__main__":
     assert(up_bound > low_bound)
     forward_flag = args.forward
     backward_flag = args.backward
+    partial = args.partial
 
     assert(forward_flag or backward_flag)
     
@@ -87,6 +90,19 @@ if __name__ == "__main__":
         forward_lower_bound=low_bound
     )
 
+    if partial == -1:
+        partial = len(x_list)
+        print("Set usage of all data!")
+    elif partial > len(x_list):
+        partial = len(x_list)
+        print("Set usage of all data!")
+    else:
+        print("Using {} samples out of {}".format(partial, len(x_list)))
+    
+    orig_len = len(x_list)
+    x_list = x_list[:partial]
+    y_list = y_list[:partial]
+
     fit_parameters = lmfit.Parameters()
     fit_parameters.add(
         "I_star", value=parameters["I_star"], vary=True, min=0.1)
@@ -107,16 +123,28 @@ if __name__ == "__main__":
 
     pd[(up_bound, low_bound)][method] = result
 
-    container = {
-        parameters["I_max"]: {
-            parameters["movement_list"][-1]["mov"]: {
-                parameters["fraction_in_usage"]: pd
+    if partial == orig_len:
+        container = {
+            parameters["I_max"]: {
+                parameters["movement_list"][-1]["mov"]: {
+                    parameters["fraction_in_usage"]: pd
+                }
             }
         }
-    }
+    else:
+        container = {
+            parameters["I_max"]: {
+                parameters["movement_list"][-1]["mov"]: {
+                    parameters["fraction_in_usage"]: {
+                        partial: pd
+                    }
+                }
+            }
+        }
 
     OUTFILE = (
         "FIT_ub_{}_lb_{}_md_{}_".format(up_bound, low_bound, method) 
+        + ("par_{}_".format(partial) if partial != orig_len else "")
         + os.path.basename(FILE).replace("working_experiment_", "")
     )
 
