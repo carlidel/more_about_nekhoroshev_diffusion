@@ -7,7 +7,7 @@ PATH = "/eos/project-d/da-and-diffusion-studies/Diffusion_Studies/new_games_with
 CHECK_PRESENCE = True
 
 PARTIAL = True
-PARTIAL_LIST = [1, 2, 5, 10, 15]
+PARTIAL_LIST = list(range(21))
 
 def get_file_pars(file):
     elements = [float(x) for x in re.findall(r"\d+\.\d+", file)]
@@ -19,7 +19,7 @@ def selector(file):
     return (
         (I_max == 8.0) and
         (I_step == 0.1) and
-        (fraction == 0.5)
+        (fraction == 0.1)
     )
 
 
