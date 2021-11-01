@@ -4,7 +4,7 @@ import re
 
 PATH = "/eos/project-d/da-and-diffusion-studies/Diffusion_Studies/new_games_with_diffusion/data"
 
-CHECK_PRESENCE = True
+CHECK_PRESENCE = False
 
 PARTIAL = True
 PARTIAL_LIST = list(range(21))
@@ -17,9 +17,9 @@ def get_file_pars(file):
 def selector(file):
     I_max, I_step, fraction = get_file_pars(file)
     return (
-        (I_max == 8.0) and
+#        (I_max == 8.0) and
         (I_step == 0.1) and
-        (fraction == 0.1)
+        (fraction == 0.5)
     )
 
 
@@ -35,11 +35,15 @@ with open("file_list.txt", 'w') as out:
         
         if not selector(f):
             print("Discarded")
-            continue
-        print("Kept")
+            #continue
+            PARTIAL = False
+        else:
+            print("Kept")
+            PARTIAL = True
 
         for l in low_bound:
-            for bb, fb in [(True, True), (True, False), (False, True)]:
+            #for bb, fb in [(True, True), (True, False), (False, True)]:
+            for bb, fb in [(False, True)]:
                 
                 if fb and bb:
                     method = "all"

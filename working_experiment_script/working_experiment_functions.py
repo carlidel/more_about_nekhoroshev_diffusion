@@ -74,8 +74,8 @@ def interpolation_system(data_list):
             t_low = np.append(t_low, d["t_abs"][-1])
             c_low = np.append(c_low, d["cur"][-1])
 
-    low_f = scipy.interpolate.interp1d(t_low, c_low, kind="linear")
-    high_f = scipy.interpolate.interp1d(t_high, c_high, kind="linear")
+    low_f = scipy.interpolate.interp1d(t_low, c_low, kind="cubic")
+    high_f = scipy.interpolate.interp1d(t_high, c_high, kind="cubic")
 
     def mid_f(x):
         return (low_f(x) + high_f(x)) / 2.0
@@ -185,6 +185,7 @@ def resid_func(params, x_list, y_list):
     resid = np.array([])
 
     def compare(x, y):
+        y[y==0] = 1.0
         if x[0] == "backward":
             module = nt.stationary_dist(
                 x[1], x[2], I_star, exponent, c) * 2
