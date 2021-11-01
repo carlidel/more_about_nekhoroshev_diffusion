@@ -17,7 +17,6 @@ def get_file_pars(file):
 def selector(file):
     I_max, I_step, fraction = get_file_pars(file)
     return (
-#        (I_max == 8.0) and
         (I_step == 0.1) and
         (fraction == 0.5)
     )
@@ -26,7 +25,7 @@ def selector(file):
 files = list(filter(lambda x: "working" in x, os.listdir(PATH)))
 all_files = os.listdir(PATH)
 
-low_bound = [0.5, 0.1, 0.01, 0.001]
+low_bound = [0.5, 0.1, 0.05, 0.01, 0.005, 0.001]
 high_bound = [np.inf, 1.0]
 
 with open("file_list.txt", 'w') as out:

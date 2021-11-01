@@ -2,15 +2,9 @@
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
-from numpy.lib.shape_base import expand_dims
 import scipy
 import scipy.integrate
-from tqdm.notebook import tqdm
 import crank_nicolson_numba.generic as cn
-import itertools
-# For parallelization
-from joblib import Parallel, delayed
 
 def D(I, I_star, exponent, c=1.0, halved=False):
     """Generate Nekhoroshev diffusion

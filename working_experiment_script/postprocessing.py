@@ -1,26 +1,10 @@
 import pickle
-import numpy as np
-import scipy
-import scipy.integrate
-import scipy.interpolate
-from tqdm import tqdm
-import crank_nicolson_numba.generic as cn
-import itertools
 import os
-import multiprocessing
-import subprocess
-import json
 import argparse
-# For parallelization
-from joblib import Parallel, delayed
 
 import lmfit
-import nekhoroshev_tools as nt
 
-from working_experiment_functions import *
-
-UPPER_BOUNDS = np.array([1.0])
-LOWER_BOUNDS = np.array([0.1, 0.01, 0.001])
+from working_experiment_functions import interpolation_system, pre_fit_sampler, resid_func
 
 PATH = "/eos/project-d/da-and-diffusion-studies/Diffusion_Studies/new_games_with_diffusion/data"
 
@@ -69,7 +53,7 @@ if __name__ == "__main__":
         method = "backward_only"
 
     with open(os.path.join(PATH, FILE), 'rb') as f:
-         parameters, data = pickle.load(f)
+        parameters, data = pickle.load(f)
 
     data['interpolation'] = interpolation_system(data["global"]["mov"])[1]
 

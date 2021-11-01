@@ -1,17 +1,11 @@
 import numpy as np
-from matplotlib import gridspec
 import scipy
 import scipy.integrate
 import scipy.interpolate
-from tqdm.notebook import tqdm
-import crank_nicolson_numba.generic as cn
-import itertools
-import os
 import multiprocessing
 # For parallelization
 from joblib import Parallel, delayed
 
-import lmfit
 import nekhoroshev_tools as nt
 
 
@@ -181,7 +175,7 @@ def resid_func(params, x_list, y_list):
     I_star = params["I_star"].value
     exponent = 1 / (params["k"].value * 2)
     c = params["c"].value
-    print(I_star, params["k"].value)
+    print("Values:", "I_star", I_star, "k", params["k"].value)
     resid = np.array([])
 
     def compare(x, y):
@@ -210,7 +204,6 @@ def resid_func(params, x_list, y_list):
             )
             return ((y - ana_current) / y)
 
-
     blocks = Parallel(NCORES)(delayed(compare)(x, y)
                           for x, y in zip(x_list, y_list))
 
@@ -218,5 +211,5 @@ def resid_func(params, x_list, y_list):
         resid = np.append(resid, b)
 
     resid[np.isinf(resid)] = 1e10
-    print(np.sum(np.power(resid, 2)))
+    print("Error:", np.sum(np.power(resid, 2)))
     return resid
