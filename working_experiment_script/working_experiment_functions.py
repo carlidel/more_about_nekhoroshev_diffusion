@@ -51,22 +51,23 @@ def interpolation_system(data_list):
     t_high = np.array([])
     c_high = np.array([])
     for i, d in enumerate(data_list):
-        if i == len(data_list) - 1:
-            t_low = np.append(t_low, d["t_abs"][-1])
-            t_high = np.append(t_high, d["t_abs"][-1])
-            c_low = np.append(c_low, d["cur"][-1])
-            c_high = np.append(c_high, d["cur"][-1])
-        elif d["kind"] == "still":
+        if d["kind"] == "still":
             t_low = np.append(t_low, d["t_abs"])
             t_high = np.append(t_high, d["t_abs"])
             c_low = np.append(c_low, d["cur"])
             c_high = np.append(c_high, d["cur"])
         elif d["kind"] == "backward":
-            t_high = np.append(t_high, d["t_abs"][-1])
-            c_high = np.append(c_high, d["cur"][-1])
+            t_high = np.append(t_high, d["t_abs"][len(d["t_abs"]) // 3 * 2 :])
+            c_high = np.append(c_high, d["cur"][len(d["cur"]) // 3 * 2:])
+            if i == len(data_list) - 1:
+                t_low = np.append(t_low, d["t_abs"][-1])
+                c_low = np.append(c_low, d["cur"][-1])
         elif d["kind"] == "forward":
-            t_low = np.append(t_low, d["t_abs"][-1])
-            c_low = np.append(c_low, d["cur"][-1])
+            t_low = np.append(t_low, d["t_abs"][len(d["t_abs"]) // 3 * 2:])
+            c_low = np.append(c_low, d["cur"][len(d["cur"]) // 3 * 2:])
+            if i == len(data_list) - 1:
+                t_high = np.append(t_high, d["t_abs"][-1])
+                c_high = np.append(c_high, d["cur"][-1])
 
     low_f = scipy.interpolate.interp1d(t_low, c_low, kind="cubic")
     high_f = scipy.interpolate.interp1d(t_high, c_high, kind="cubic")
