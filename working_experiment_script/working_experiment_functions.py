@@ -46,6 +46,7 @@ def current_estimate_forward(I_min, I_max, I_star, exponent, c, t):
 
 
 def interpolation_system(data_list):
+    # phase 1
     t_low = np.array([])
     c_low = np.array([])
     t_high = np.array([])
@@ -57,14 +58,22 @@ def interpolation_system(data_list):
             c_low = np.append(c_low, d["cur"])
             c_high = np.append(c_high, d["cur"])
         elif d["kind"] == "backward":
-            t_high = np.append(t_high, d["t_abs"][len(d["t_abs"]) // 3 * 2 :])
-            c_high = np.append(c_high, d["cur"][len(d["cur"]) // 3 * 2:])
+            d_gradient = np.gradient(d["cur"])
+            idx = np.argmin(d_gradient < d_gradient[-1] * 1.01)
+            if idx <= 0:
+                idx = len(d_gradient) - 1
+            t_high = np.append(t_high, d["t_abs"][idx:])
+            c_high = np.append(c_high, d["cur"][idx:])
             if i == len(data_list) - 1:
                 t_low = np.append(t_low, d["t_abs"][-1])
                 c_low = np.append(c_low, d["cur"][-1])
         elif d["kind"] == "forward":
-            t_low = np.append(t_low, d["t_abs"][len(d["t_abs"]) // 3 * 2:])
-            c_low = np.append(c_low, d["cur"][len(d["cur"]) // 3 * 2:])
+            d_gradient = np.gradient(d["cur"])
+            idx = np.argmax(d_gradient > d_gradient[-1] * 0.99)
+            if idx <= 0:
+                idx = len(d_gradient) - 1
+            t_low = np.append(t_low, d["t_abs"][idx:])
+            c_low = np.append(c_low, d["cur"][idx:])
             if i == len(data_list) - 1:
                 t_high = np.append(t_high, d["t_abs"][-1])
                 c_high = np.append(c_high, d["cur"][-1])
