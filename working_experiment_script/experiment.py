@@ -67,6 +67,13 @@ def experiment_routine(
     I, dI = np.linspace(0.0, I_max, I_sampling,
                         endpoint=False, retstep=True)
     rho_0 = np.exp(-I)
+    # will this improve things?
+    idx = np.argmin(I / I_star < 0.4)
+    if idx != 0:
+        s_dist = nt.stationary_dist(I[idx:], I_max, I_star, exponent, c)
+        s_dist = s_dist / s_dist[0] * rho_0[idx]
+        rho_0[idx:] = s_dist
+
     engine_g_imm = cn.cn_generic(
         0.0, I_max,
         rho_0,
