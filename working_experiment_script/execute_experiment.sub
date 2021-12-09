@@ -9,8 +9,6 @@ should_transfer_files   = YES
 
 transfer_input_files    = ./experiment.py, ./execute_experiment.sh, ./nekhoroshev_tools.py, ./parameters/$(file)
 
-when_to_transfer_output = ON_EXIT
-
 +JobFlavour = "tomorrow"
 
 file=param_Imax_4.00_Istep_0.20_fraction_1.000.json
@@ -19,7 +17,16 @@ queue
 file=param_Imax_4.00_Istep_0.20_fraction_0.500.json
 queue
 
+file=param_Imax_4.00_Istep_0.20_fraction_0.100.json
+queue
+
+file=param_Imax_4.00_Istep_0.20_fraction_0.050.json
+queue
+
 file=param_Imax_4.00_Istep_0.20_fraction_0.010.json
+queue
+
+file=param_Imax_4.00_Istep_0.20_fraction_0.005.json
 queue
 
 file=param_Imax_4.00_Istep_0.20_fraction_0.001.json
@@ -31,22 +38,61 @@ queue
 file=param_Imax_4.00_Istep_0.10_fraction_0.500.json
 queue
 
+file=param_Imax_4.00_Istep_0.10_fraction_0.100.json
+queue
+
+file=param_Imax_4.00_Istep_0.10_fraction_0.050.json
+queue
+
 file=param_Imax_4.00_Istep_0.10_fraction_0.010.json
+queue
+
+file=param_Imax_4.00_Istep_0.10_fraction_0.005.json
 queue
 
 file=param_Imax_4.00_Istep_0.10_fraction_0.001.json
 queue
 
-file=param_Imax_4.00_Istep_0.40_fraction_1.000.json
+file=param_Imax_4.00_Istep_1.00_fraction_1.000.json
 queue
 
-file=param_Imax_4.00_Istep_0.40_fraction_0.500.json
+file=param_Imax_4.00_Istep_1.00_fraction_0.500.json
 queue
 
-file=param_Imax_4.00_Istep_0.40_fraction_0.010.json
+file=param_Imax_4.00_Istep_1.00_fraction_0.100.json
 queue
 
-file=param_Imax_4.00_Istep_0.40_fraction_0.001.json
+file=param_Imax_4.00_Istep_1.00_fraction_0.050.json
+queue
+
+file=param_Imax_4.00_Istep_1.00_fraction_0.010.json
+queue
+
+file=param_Imax_4.00_Istep_1.00_fraction_0.005.json
+queue
+
+file=param_Imax_4.00_Istep_1.00_fraction_0.001.json
+queue
+
+file=param_Imax_4.00_Istep_0.02_fraction_1.000.json
+queue
+
+file=param_Imax_4.00_Istep_0.02_fraction_0.500.json
+queue
+
+file=param_Imax_4.00_Istep_0.02_fraction_0.100.json
+queue
+
+file=param_Imax_4.00_Istep_0.02_fraction_0.050.json
+queue
+
+file=param_Imax_4.00_Istep_0.02_fraction_0.010.json
+queue
+
+file=param_Imax_4.00_Istep_0.02_fraction_0.005.json
+queue
+
+file=param_Imax_4.00_Istep_0.02_fraction_0.001.json
 queue
 
 file=param_Imax_6.00_Istep_0.20_fraction_1.000.json
@@ -55,7 +101,16 @@ queue
 file=param_Imax_6.00_Istep_0.20_fraction_0.500.json
 queue
 
+file=param_Imax_6.00_Istep_0.20_fraction_0.100.json
+queue
+
+file=param_Imax_6.00_Istep_0.20_fraction_0.050.json
+queue
+
 file=param_Imax_6.00_Istep_0.20_fraction_0.010.json
+queue
+
+file=param_Imax_6.00_Istep_0.20_fraction_0.005.json
 queue
 
 file=param_Imax_6.00_Istep_0.20_fraction_0.001.json
@@ -67,22 +122,61 @@ queue
 file=param_Imax_6.00_Istep_0.10_fraction_0.500.json
 queue
 
+file=param_Imax_6.00_Istep_0.10_fraction_0.100.json
+queue
+
+file=param_Imax_6.00_Istep_0.10_fraction_0.050.json
+queue
+
 file=param_Imax_6.00_Istep_0.10_fraction_0.010.json
+queue
+
+file=param_Imax_6.00_Istep_0.10_fraction_0.005.json
 queue
 
 file=param_Imax_6.00_Istep_0.10_fraction_0.001.json
 queue
 
-file=param_Imax_6.00_Istep_0.40_fraction_1.000.json
+file=param_Imax_6.00_Istep_1.00_fraction_1.000.json
 queue
 
-file=param_Imax_6.00_Istep_0.40_fraction_0.500.json
+file=param_Imax_6.00_Istep_1.00_fraction_0.500.json
 queue
 
-file=param_Imax_6.00_Istep_0.40_fraction_0.010.json
+file=param_Imax_6.00_Istep_1.00_fraction_0.100.json
 queue
 
-file=param_Imax_6.00_Istep_0.40_fraction_0.001.json
+file=param_Imax_6.00_Istep_1.00_fraction_0.050.json
+queue
+
+file=param_Imax_6.00_Istep_1.00_fraction_0.010.json
+queue
+
+file=param_Imax_6.00_Istep_1.00_fraction_0.005.json
+queue
+
+file=param_Imax_6.00_Istep_1.00_fraction_0.001.json
+queue
+
+file=param_Imax_6.00_Istep_0.02_fraction_1.000.json
+queue
+
+file=param_Imax_6.00_Istep_0.02_fraction_0.500.json
+queue
+
+file=param_Imax_6.00_Istep_0.02_fraction_0.100.json
+queue
+
+file=param_Imax_6.00_Istep_0.02_fraction_0.050.json
+queue
+
+file=param_Imax_6.00_Istep_0.02_fraction_0.010.json
+queue
+
+file=param_Imax_6.00_Istep_0.02_fraction_0.005.json
+queue
+
+file=param_Imax_6.00_Istep_0.02_fraction_0.001.json
 queue
 
 file=param_Imax_8.00_Istep_0.20_fraction_1.000.json
@@ -91,7 +185,16 @@ queue
 file=param_Imax_8.00_Istep_0.20_fraction_0.500.json
 queue
 
+file=param_Imax_8.00_Istep_0.20_fraction_0.100.json
+queue
+
+file=param_Imax_8.00_Istep_0.20_fraction_0.050.json
+queue
+
 file=param_Imax_8.00_Istep_0.20_fraction_0.010.json
+queue
+
+file=param_Imax_8.00_Istep_0.20_fraction_0.005.json
 queue
 
 file=param_Imax_8.00_Istep_0.20_fraction_0.001.json
@@ -103,22 +206,61 @@ queue
 file=param_Imax_8.00_Istep_0.10_fraction_0.500.json
 queue
 
+file=param_Imax_8.00_Istep_0.10_fraction_0.100.json
+queue
+
+file=param_Imax_8.00_Istep_0.10_fraction_0.050.json
+queue
+
 file=param_Imax_8.00_Istep_0.10_fraction_0.010.json
+queue
+
+file=param_Imax_8.00_Istep_0.10_fraction_0.005.json
 queue
 
 file=param_Imax_8.00_Istep_0.10_fraction_0.001.json
 queue
 
-file=param_Imax_8.00_Istep_0.40_fraction_1.000.json
+file=param_Imax_8.00_Istep_1.00_fraction_1.000.json
 queue
 
-file=param_Imax_8.00_Istep_0.40_fraction_0.500.json
+file=param_Imax_8.00_Istep_1.00_fraction_0.500.json
 queue
 
-file=param_Imax_8.00_Istep_0.40_fraction_0.010.json
+file=param_Imax_8.00_Istep_1.00_fraction_0.100.json
 queue
 
-file=param_Imax_8.00_Istep_0.40_fraction_0.001.json
+file=param_Imax_8.00_Istep_1.00_fraction_0.050.json
+queue
+
+file=param_Imax_8.00_Istep_1.00_fraction_0.010.json
+queue
+
+file=param_Imax_8.00_Istep_1.00_fraction_0.005.json
+queue
+
+file=param_Imax_8.00_Istep_1.00_fraction_0.001.json
+queue
+
+file=param_Imax_8.00_Istep_0.02_fraction_1.000.json
+queue
+
+file=param_Imax_8.00_Istep_0.02_fraction_0.500.json
+queue
+
+file=param_Imax_8.00_Istep_0.02_fraction_0.100.json
+queue
+
+file=param_Imax_8.00_Istep_0.02_fraction_0.050.json
+queue
+
+file=param_Imax_8.00_Istep_0.02_fraction_0.010.json
+queue
+
+file=param_Imax_8.00_Istep_0.02_fraction_0.005.json
+queue
+
+file=param_Imax_8.00_Istep_0.02_fraction_0.001.json
 queue
 
 file=param_Imax_10.00_Istep_0.20_fraction_1.000.json
@@ -127,7 +269,16 @@ queue
 file=param_Imax_10.00_Istep_0.20_fraction_0.500.json
 queue
 
+file=param_Imax_10.00_Istep_0.20_fraction_0.100.json
+queue
+
+file=param_Imax_10.00_Istep_0.20_fraction_0.050.json
+queue
+
 file=param_Imax_10.00_Istep_0.20_fraction_0.010.json
+queue
+
+file=param_Imax_10.00_Istep_0.20_fraction_0.005.json
 queue
 
 file=param_Imax_10.00_Istep_0.20_fraction_0.001.json
@@ -139,22 +290,61 @@ queue
 file=param_Imax_10.00_Istep_0.10_fraction_0.500.json
 queue
 
+file=param_Imax_10.00_Istep_0.10_fraction_0.100.json
+queue
+
+file=param_Imax_10.00_Istep_0.10_fraction_0.050.json
+queue
+
 file=param_Imax_10.00_Istep_0.10_fraction_0.010.json
+queue
+
+file=param_Imax_10.00_Istep_0.10_fraction_0.005.json
 queue
 
 file=param_Imax_10.00_Istep_0.10_fraction_0.001.json
 queue
 
-file=param_Imax_10.00_Istep_0.40_fraction_1.000.json
+file=param_Imax_10.00_Istep_1.00_fraction_1.000.json
 queue
 
-file=param_Imax_10.00_Istep_0.40_fraction_0.500.json
+file=param_Imax_10.00_Istep_1.00_fraction_0.500.json
 queue
 
-file=param_Imax_10.00_Istep_0.40_fraction_0.010.json
+file=param_Imax_10.00_Istep_1.00_fraction_0.100.json
 queue
 
-file=param_Imax_10.00_Istep_0.40_fraction_0.001.json
+file=param_Imax_10.00_Istep_1.00_fraction_0.050.json
+queue
+
+file=param_Imax_10.00_Istep_1.00_fraction_0.010.json
+queue
+
+file=param_Imax_10.00_Istep_1.00_fraction_0.005.json
+queue
+
+file=param_Imax_10.00_Istep_1.00_fraction_0.001.json
+queue
+
+file=param_Imax_10.00_Istep_0.02_fraction_1.000.json
+queue
+
+file=param_Imax_10.00_Istep_0.02_fraction_0.500.json
+queue
+
+file=param_Imax_10.00_Istep_0.02_fraction_0.100.json
+queue
+
+file=param_Imax_10.00_Istep_0.02_fraction_0.050.json
+queue
+
+file=param_Imax_10.00_Istep_0.02_fraction_0.010.json
+queue
+
+file=param_Imax_10.00_Istep_0.02_fraction_0.005.json
+queue
+
+file=param_Imax_10.00_Istep_0.02_fraction_0.001.json
 queue
 
 file=param_Imax_12.00_Istep_0.20_fraction_1.000.json
@@ -163,7 +353,16 @@ queue
 file=param_Imax_12.00_Istep_0.20_fraction_0.500.json
 queue
 
+file=param_Imax_12.00_Istep_0.20_fraction_0.100.json
+queue
+
+file=param_Imax_12.00_Istep_0.20_fraction_0.050.json
+queue
+
 file=param_Imax_12.00_Istep_0.20_fraction_0.010.json
+queue
+
+file=param_Imax_12.00_Istep_0.20_fraction_0.005.json
 queue
 
 file=param_Imax_12.00_Istep_0.20_fraction_0.001.json
@@ -175,22 +374,61 @@ queue
 file=param_Imax_12.00_Istep_0.10_fraction_0.500.json
 queue
 
+file=param_Imax_12.00_Istep_0.10_fraction_0.100.json
+queue
+
+file=param_Imax_12.00_Istep_0.10_fraction_0.050.json
+queue
+
 file=param_Imax_12.00_Istep_0.10_fraction_0.010.json
+queue
+
+file=param_Imax_12.00_Istep_0.10_fraction_0.005.json
 queue
 
 file=param_Imax_12.00_Istep_0.10_fraction_0.001.json
 queue
 
-file=param_Imax_12.00_Istep_0.40_fraction_1.000.json
+file=param_Imax_12.00_Istep_1.00_fraction_1.000.json
 queue
 
-file=param_Imax_12.00_Istep_0.40_fraction_0.500.json
+file=param_Imax_12.00_Istep_1.00_fraction_0.500.json
 queue
 
-file=param_Imax_12.00_Istep_0.40_fraction_0.010.json
+file=param_Imax_12.00_Istep_1.00_fraction_0.100.json
 queue
 
-file=param_Imax_12.00_Istep_0.40_fraction_0.001.json
+file=param_Imax_12.00_Istep_1.00_fraction_0.050.json
+queue
+
+file=param_Imax_12.00_Istep_1.00_fraction_0.010.json
+queue
+
+file=param_Imax_12.00_Istep_1.00_fraction_0.005.json
+queue
+
+file=param_Imax_12.00_Istep_1.00_fraction_0.001.json
+queue
+
+file=param_Imax_12.00_Istep_0.02_fraction_1.000.json
+queue
+
+file=param_Imax_12.00_Istep_0.02_fraction_0.500.json
+queue
+
+file=param_Imax_12.00_Istep_0.02_fraction_0.100.json
+queue
+
+file=param_Imax_12.00_Istep_0.02_fraction_0.050.json
+queue
+
+file=param_Imax_12.00_Istep_0.02_fraction_0.010.json
+queue
+
+file=param_Imax_12.00_Istep_0.02_fraction_0.005.json
+queue
+
+file=param_Imax_12.00_Istep_0.02_fraction_0.001.json
 queue
 
 file=param_Imax_14.00_Istep_0.20_fraction_1.000.json
@@ -199,7 +437,16 @@ queue
 file=param_Imax_14.00_Istep_0.20_fraction_0.500.json
 queue
 
+file=param_Imax_14.00_Istep_0.20_fraction_0.100.json
+queue
+
+file=param_Imax_14.00_Istep_0.20_fraction_0.050.json
+queue
+
 file=param_Imax_14.00_Istep_0.20_fraction_0.010.json
+queue
+
+file=param_Imax_14.00_Istep_0.20_fraction_0.005.json
 queue
 
 file=param_Imax_14.00_Istep_0.20_fraction_0.001.json
@@ -211,22 +458,61 @@ queue
 file=param_Imax_14.00_Istep_0.10_fraction_0.500.json
 queue
 
+file=param_Imax_14.00_Istep_0.10_fraction_0.100.json
+queue
+
+file=param_Imax_14.00_Istep_0.10_fraction_0.050.json
+queue
+
 file=param_Imax_14.00_Istep_0.10_fraction_0.010.json
+queue
+
+file=param_Imax_14.00_Istep_0.10_fraction_0.005.json
 queue
 
 file=param_Imax_14.00_Istep_0.10_fraction_0.001.json
 queue
 
-file=param_Imax_14.00_Istep_0.40_fraction_1.000.json
+file=param_Imax_14.00_Istep_1.00_fraction_1.000.json
 queue
 
-file=param_Imax_14.00_Istep_0.40_fraction_0.500.json
+file=param_Imax_14.00_Istep_1.00_fraction_0.500.json
 queue
 
-file=param_Imax_14.00_Istep_0.40_fraction_0.010.json
+file=param_Imax_14.00_Istep_1.00_fraction_0.100.json
 queue
 
-file=param_Imax_14.00_Istep_0.40_fraction_0.001.json
+file=param_Imax_14.00_Istep_1.00_fraction_0.050.json
+queue
+
+file=param_Imax_14.00_Istep_1.00_fraction_0.010.json
+queue
+
+file=param_Imax_14.00_Istep_1.00_fraction_0.005.json
+queue
+
+file=param_Imax_14.00_Istep_1.00_fraction_0.001.json
+queue
+
+file=param_Imax_14.00_Istep_0.02_fraction_1.000.json
+queue
+
+file=param_Imax_14.00_Istep_0.02_fraction_0.500.json
+queue
+
+file=param_Imax_14.00_Istep_0.02_fraction_0.100.json
+queue
+
+file=param_Imax_14.00_Istep_0.02_fraction_0.050.json
+queue
+
+file=param_Imax_14.00_Istep_0.02_fraction_0.010.json
+queue
+
+file=param_Imax_14.00_Istep_0.02_fraction_0.005.json
+queue
+
+file=param_Imax_14.00_Istep_0.02_fraction_0.001.json
 queue
 
 file=param_Imax_16.00_Istep_0.20_fraction_1.000.json
@@ -235,7 +521,16 @@ queue
 file=param_Imax_16.00_Istep_0.20_fraction_0.500.json
 queue
 
+file=param_Imax_16.00_Istep_0.20_fraction_0.100.json
+queue
+
+file=param_Imax_16.00_Istep_0.20_fraction_0.050.json
+queue
+
 file=param_Imax_16.00_Istep_0.20_fraction_0.010.json
+queue
+
+file=param_Imax_16.00_Istep_0.20_fraction_0.005.json
 queue
 
 file=param_Imax_16.00_Istep_0.20_fraction_0.001.json
@@ -247,22 +542,61 @@ queue
 file=param_Imax_16.00_Istep_0.10_fraction_0.500.json
 queue
 
+file=param_Imax_16.00_Istep_0.10_fraction_0.100.json
+queue
+
+file=param_Imax_16.00_Istep_0.10_fraction_0.050.json
+queue
+
 file=param_Imax_16.00_Istep_0.10_fraction_0.010.json
+queue
+
+file=param_Imax_16.00_Istep_0.10_fraction_0.005.json
 queue
 
 file=param_Imax_16.00_Istep_0.10_fraction_0.001.json
 queue
 
-file=param_Imax_16.00_Istep_0.40_fraction_1.000.json
+file=param_Imax_16.00_Istep_1.00_fraction_1.000.json
 queue
 
-file=param_Imax_16.00_Istep_0.40_fraction_0.500.json
+file=param_Imax_16.00_Istep_1.00_fraction_0.500.json
 queue
 
-file=param_Imax_16.00_Istep_0.40_fraction_0.010.json
+file=param_Imax_16.00_Istep_1.00_fraction_0.100.json
 queue
 
-file=param_Imax_16.00_Istep_0.40_fraction_0.001.json
+file=param_Imax_16.00_Istep_1.00_fraction_0.050.json
+queue
+
+file=param_Imax_16.00_Istep_1.00_fraction_0.010.json
+queue
+
+file=param_Imax_16.00_Istep_1.00_fraction_0.005.json
+queue
+
+file=param_Imax_16.00_Istep_1.00_fraction_0.001.json
+queue
+
+file=param_Imax_16.00_Istep_0.02_fraction_1.000.json
+queue
+
+file=param_Imax_16.00_Istep_0.02_fraction_0.500.json
+queue
+
+file=param_Imax_16.00_Istep_0.02_fraction_0.100.json
+queue
+
+file=param_Imax_16.00_Istep_0.02_fraction_0.050.json
+queue
+
+file=param_Imax_16.00_Istep_0.02_fraction_0.010.json
+queue
+
+file=param_Imax_16.00_Istep_0.02_fraction_0.005.json
+queue
+
+file=param_Imax_16.00_Istep_0.02_fraction_0.001.json
 queue
 
 file=param_Imax_18.00_Istep_0.20_fraction_1.000.json
@@ -271,7 +605,16 @@ queue
 file=param_Imax_18.00_Istep_0.20_fraction_0.500.json
 queue
 
+file=param_Imax_18.00_Istep_0.20_fraction_0.100.json
+queue
+
+file=param_Imax_18.00_Istep_0.20_fraction_0.050.json
+queue
+
 file=param_Imax_18.00_Istep_0.20_fraction_0.010.json
+queue
+
+file=param_Imax_18.00_Istep_0.20_fraction_0.005.json
 queue
 
 file=param_Imax_18.00_Istep_0.20_fraction_0.001.json
@@ -283,22 +626,61 @@ queue
 file=param_Imax_18.00_Istep_0.10_fraction_0.500.json
 queue
 
+file=param_Imax_18.00_Istep_0.10_fraction_0.100.json
+queue
+
+file=param_Imax_18.00_Istep_0.10_fraction_0.050.json
+queue
+
 file=param_Imax_18.00_Istep_0.10_fraction_0.010.json
+queue
+
+file=param_Imax_18.00_Istep_0.10_fraction_0.005.json
 queue
 
 file=param_Imax_18.00_Istep_0.10_fraction_0.001.json
 queue
 
-file=param_Imax_18.00_Istep_0.40_fraction_1.000.json
+file=param_Imax_18.00_Istep_1.00_fraction_1.000.json
 queue
 
-file=param_Imax_18.00_Istep_0.40_fraction_0.500.json
+file=param_Imax_18.00_Istep_1.00_fraction_0.500.json
 queue
 
-file=param_Imax_18.00_Istep_0.40_fraction_0.010.json
+file=param_Imax_18.00_Istep_1.00_fraction_0.100.json
 queue
 
-file=param_Imax_18.00_Istep_0.40_fraction_0.001.json
+file=param_Imax_18.00_Istep_1.00_fraction_0.050.json
+queue
+
+file=param_Imax_18.00_Istep_1.00_fraction_0.010.json
+queue
+
+file=param_Imax_18.00_Istep_1.00_fraction_0.005.json
+queue
+
+file=param_Imax_18.00_Istep_1.00_fraction_0.001.json
+queue
+
+file=param_Imax_18.00_Istep_0.02_fraction_1.000.json
+queue
+
+file=param_Imax_18.00_Istep_0.02_fraction_0.500.json
+queue
+
+file=param_Imax_18.00_Istep_0.02_fraction_0.100.json
+queue
+
+file=param_Imax_18.00_Istep_0.02_fraction_0.050.json
+queue
+
+file=param_Imax_18.00_Istep_0.02_fraction_0.010.json
+queue
+
+file=param_Imax_18.00_Istep_0.02_fraction_0.005.json
+queue
+
+file=param_Imax_18.00_Istep_0.02_fraction_0.001.json
 queue
 
 file=param_Imax_20.00_Istep_0.20_fraction_1.000.json
@@ -307,7 +689,16 @@ queue
 file=param_Imax_20.00_Istep_0.20_fraction_0.500.json
 queue
 
+file=param_Imax_20.00_Istep_0.20_fraction_0.100.json
+queue
+
+file=param_Imax_20.00_Istep_0.20_fraction_0.050.json
+queue
+
 file=param_Imax_20.00_Istep_0.20_fraction_0.010.json
+queue
+
+file=param_Imax_20.00_Istep_0.20_fraction_0.005.json
 queue
 
 file=param_Imax_20.00_Istep_0.20_fraction_0.001.json
@@ -319,22 +710,61 @@ queue
 file=param_Imax_20.00_Istep_0.10_fraction_0.500.json
 queue
 
+file=param_Imax_20.00_Istep_0.10_fraction_0.100.json
+queue
+
+file=param_Imax_20.00_Istep_0.10_fraction_0.050.json
+queue
+
 file=param_Imax_20.00_Istep_0.10_fraction_0.010.json
+queue
+
+file=param_Imax_20.00_Istep_0.10_fraction_0.005.json
 queue
 
 file=param_Imax_20.00_Istep_0.10_fraction_0.001.json
 queue
 
-file=param_Imax_20.00_Istep_0.40_fraction_1.000.json
+file=param_Imax_20.00_Istep_1.00_fraction_1.000.json
 queue
 
-file=param_Imax_20.00_Istep_0.40_fraction_0.500.json
+file=param_Imax_20.00_Istep_1.00_fraction_0.500.json
 queue
 
-file=param_Imax_20.00_Istep_0.40_fraction_0.010.json
+file=param_Imax_20.00_Istep_1.00_fraction_0.100.json
 queue
 
-file=param_Imax_20.00_Istep_0.40_fraction_0.001.json
+file=param_Imax_20.00_Istep_1.00_fraction_0.050.json
+queue
+
+file=param_Imax_20.00_Istep_1.00_fraction_0.010.json
+queue
+
+file=param_Imax_20.00_Istep_1.00_fraction_0.005.json
+queue
+
+file=param_Imax_20.00_Istep_1.00_fraction_0.001.json
+queue
+
+file=param_Imax_20.00_Istep_0.02_fraction_1.000.json
+queue
+
+file=param_Imax_20.00_Istep_0.02_fraction_0.500.json
+queue
+
+file=param_Imax_20.00_Istep_0.02_fraction_0.100.json
+queue
+
+file=param_Imax_20.00_Istep_0.02_fraction_0.050.json
+queue
+
+file=param_Imax_20.00_Istep_0.02_fraction_0.010.json
+queue
+
+file=param_Imax_20.00_Istep_0.02_fraction_0.005.json
+queue
+
+file=param_Imax_20.00_Istep_0.02_fraction_0.001.json
 queue
 
 file=param_Imax_22.00_Istep_0.20_fraction_1.000.json
@@ -343,7 +773,16 @@ queue
 file=param_Imax_22.00_Istep_0.20_fraction_0.500.json
 queue
 
+file=param_Imax_22.00_Istep_0.20_fraction_0.100.json
+queue
+
+file=param_Imax_22.00_Istep_0.20_fraction_0.050.json
+queue
+
 file=param_Imax_22.00_Istep_0.20_fraction_0.010.json
+queue
+
+file=param_Imax_22.00_Istep_0.20_fraction_0.005.json
 queue
 
 file=param_Imax_22.00_Istep_0.20_fraction_0.001.json
@@ -355,22 +794,61 @@ queue
 file=param_Imax_22.00_Istep_0.10_fraction_0.500.json
 queue
 
+file=param_Imax_22.00_Istep_0.10_fraction_0.100.json
+queue
+
+file=param_Imax_22.00_Istep_0.10_fraction_0.050.json
+queue
+
 file=param_Imax_22.00_Istep_0.10_fraction_0.010.json
+queue
+
+file=param_Imax_22.00_Istep_0.10_fraction_0.005.json
 queue
 
 file=param_Imax_22.00_Istep_0.10_fraction_0.001.json
 queue
 
-file=param_Imax_22.00_Istep_0.40_fraction_1.000.json
+file=param_Imax_22.00_Istep_1.00_fraction_1.000.json
 queue
 
-file=param_Imax_22.00_Istep_0.40_fraction_0.500.json
+file=param_Imax_22.00_Istep_1.00_fraction_0.500.json
 queue
 
-file=param_Imax_22.00_Istep_0.40_fraction_0.010.json
+file=param_Imax_22.00_Istep_1.00_fraction_0.100.json
 queue
 
-file=param_Imax_22.00_Istep_0.40_fraction_0.001.json
+file=param_Imax_22.00_Istep_1.00_fraction_0.050.json
+queue
+
+file=param_Imax_22.00_Istep_1.00_fraction_0.010.json
+queue
+
+file=param_Imax_22.00_Istep_1.00_fraction_0.005.json
+queue
+
+file=param_Imax_22.00_Istep_1.00_fraction_0.001.json
+queue
+
+file=param_Imax_22.00_Istep_0.02_fraction_1.000.json
+queue
+
+file=param_Imax_22.00_Istep_0.02_fraction_0.500.json
+queue
+
+file=param_Imax_22.00_Istep_0.02_fraction_0.100.json
+queue
+
+file=param_Imax_22.00_Istep_0.02_fraction_0.050.json
+queue
+
+file=param_Imax_22.00_Istep_0.02_fraction_0.010.json
+queue
+
+file=param_Imax_22.00_Istep_0.02_fraction_0.005.json
+queue
+
+file=param_Imax_22.00_Istep_0.02_fraction_0.001.json
 queue
 
 file=param_Imax_24.00_Istep_0.20_fraction_1.000.json
@@ -379,7 +857,16 @@ queue
 file=param_Imax_24.00_Istep_0.20_fraction_0.500.json
 queue
 
+file=param_Imax_24.00_Istep_0.20_fraction_0.100.json
+queue
+
+file=param_Imax_24.00_Istep_0.20_fraction_0.050.json
+queue
+
 file=param_Imax_24.00_Istep_0.20_fraction_0.010.json
+queue
+
+file=param_Imax_24.00_Istep_0.20_fraction_0.005.json
 queue
 
 file=param_Imax_24.00_Istep_0.20_fraction_0.001.json
@@ -391,22 +878,61 @@ queue
 file=param_Imax_24.00_Istep_0.10_fraction_0.500.json
 queue
 
+file=param_Imax_24.00_Istep_0.10_fraction_0.100.json
+queue
+
+file=param_Imax_24.00_Istep_0.10_fraction_0.050.json
+queue
+
 file=param_Imax_24.00_Istep_0.10_fraction_0.010.json
+queue
+
+file=param_Imax_24.00_Istep_0.10_fraction_0.005.json
 queue
 
 file=param_Imax_24.00_Istep_0.10_fraction_0.001.json
 queue
 
-file=param_Imax_24.00_Istep_0.40_fraction_1.000.json
+file=param_Imax_24.00_Istep_1.00_fraction_1.000.json
 queue
 
-file=param_Imax_24.00_Istep_0.40_fraction_0.500.json
+file=param_Imax_24.00_Istep_1.00_fraction_0.500.json
 queue
 
-file=param_Imax_24.00_Istep_0.40_fraction_0.010.json
+file=param_Imax_24.00_Istep_1.00_fraction_0.100.json
 queue
 
-file=param_Imax_24.00_Istep_0.40_fraction_0.001.json
+file=param_Imax_24.00_Istep_1.00_fraction_0.050.json
+queue
+
+file=param_Imax_24.00_Istep_1.00_fraction_0.010.json
+queue
+
+file=param_Imax_24.00_Istep_1.00_fraction_0.005.json
+queue
+
+file=param_Imax_24.00_Istep_1.00_fraction_0.001.json
+queue
+
+file=param_Imax_24.00_Istep_0.02_fraction_1.000.json
+queue
+
+file=param_Imax_24.00_Istep_0.02_fraction_0.500.json
+queue
+
+file=param_Imax_24.00_Istep_0.02_fraction_0.100.json
+queue
+
+file=param_Imax_24.00_Istep_0.02_fraction_0.050.json
+queue
+
+file=param_Imax_24.00_Istep_0.02_fraction_0.010.json
+queue
+
+file=param_Imax_24.00_Istep_0.02_fraction_0.005.json
+queue
+
+file=param_Imax_24.00_Istep_0.02_fraction_0.001.json
 queue
 
 file=param_Imax_26.00_Istep_0.20_fraction_1.000.json
@@ -415,7 +941,16 @@ queue
 file=param_Imax_26.00_Istep_0.20_fraction_0.500.json
 queue
 
+file=param_Imax_26.00_Istep_0.20_fraction_0.100.json
+queue
+
+file=param_Imax_26.00_Istep_0.20_fraction_0.050.json
+queue
+
 file=param_Imax_26.00_Istep_0.20_fraction_0.010.json
+queue
+
+file=param_Imax_26.00_Istep_0.20_fraction_0.005.json
 queue
 
 file=param_Imax_26.00_Istep_0.20_fraction_0.001.json
@@ -427,22 +962,61 @@ queue
 file=param_Imax_26.00_Istep_0.10_fraction_0.500.json
 queue
 
+file=param_Imax_26.00_Istep_0.10_fraction_0.100.json
+queue
+
+file=param_Imax_26.00_Istep_0.10_fraction_0.050.json
+queue
+
 file=param_Imax_26.00_Istep_0.10_fraction_0.010.json
+queue
+
+file=param_Imax_26.00_Istep_0.10_fraction_0.005.json
 queue
 
 file=param_Imax_26.00_Istep_0.10_fraction_0.001.json
 queue
 
-file=param_Imax_26.00_Istep_0.40_fraction_1.000.json
+file=param_Imax_26.00_Istep_1.00_fraction_1.000.json
 queue
 
-file=param_Imax_26.00_Istep_0.40_fraction_0.500.json
+file=param_Imax_26.00_Istep_1.00_fraction_0.500.json
 queue
 
-file=param_Imax_26.00_Istep_0.40_fraction_0.010.json
+file=param_Imax_26.00_Istep_1.00_fraction_0.100.json
 queue
 
-file=param_Imax_26.00_Istep_0.40_fraction_0.001.json
+file=param_Imax_26.00_Istep_1.00_fraction_0.050.json
+queue
+
+file=param_Imax_26.00_Istep_1.00_fraction_0.010.json
+queue
+
+file=param_Imax_26.00_Istep_1.00_fraction_0.005.json
+queue
+
+file=param_Imax_26.00_Istep_1.00_fraction_0.001.json
+queue
+
+file=param_Imax_26.00_Istep_0.02_fraction_1.000.json
+queue
+
+file=param_Imax_26.00_Istep_0.02_fraction_0.500.json
+queue
+
+file=param_Imax_26.00_Istep_0.02_fraction_0.100.json
+queue
+
+file=param_Imax_26.00_Istep_0.02_fraction_0.050.json
+queue
+
+file=param_Imax_26.00_Istep_0.02_fraction_0.010.json
+queue
+
+file=param_Imax_26.00_Istep_0.02_fraction_0.005.json
+queue
+
+file=param_Imax_26.00_Istep_0.02_fraction_0.001.json
 queue
 
 file=param_Imax_28.00_Istep_0.20_fraction_1.000.json
@@ -451,7 +1025,16 @@ queue
 file=param_Imax_28.00_Istep_0.20_fraction_0.500.json
 queue
 
+file=param_Imax_28.00_Istep_0.20_fraction_0.100.json
+queue
+
+file=param_Imax_28.00_Istep_0.20_fraction_0.050.json
+queue
+
 file=param_Imax_28.00_Istep_0.20_fraction_0.010.json
+queue
+
+file=param_Imax_28.00_Istep_0.20_fraction_0.005.json
 queue
 
 file=param_Imax_28.00_Istep_0.20_fraction_0.001.json
@@ -463,21 +1046,144 @@ queue
 file=param_Imax_28.00_Istep_0.10_fraction_0.500.json
 queue
 
+file=param_Imax_28.00_Istep_0.10_fraction_0.100.json
+queue
+
+file=param_Imax_28.00_Istep_0.10_fraction_0.050.json
+queue
+
 file=param_Imax_28.00_Istep_0.10_fraction_0.010.json
+queue
+
+file=param_Imax_28.00_Istep_0.10_fraction_0.005.json
 queue
 
 file=param_Imax_28.00_Istep_0.10_fraction_0.001.json
 queue
 
-file=param_Imax_28.00_Istep_0.40_fraction_1.000.json
+file=param_Imax_28.00_Istep_1.00_fraction_1.000.json
 queue
 
-file=param_Imax_28.00_Istep_0.40_fraction_0.500.json
+file=param_Imax_28.00_Istep_1.00_fraction_0.500.json
 queue
 
-file=param_Imax_28.00_Istep_0.40_fraction_0.010.json
+file=param_Imax_28.00_Istep_1.00_fraction_0.100.json
 queue
 
-file=param_Imax_28.00_Istep_0.40_fraction_0.001.json
+file=param_Imax_28.00_Istep_1.00_fraction_0.050.json
+queue
+
+file=param_Imax_28.00_Istep_1.00_fraction_0.010.json
+queue
+
+file=param_Imax_28.00_Istep_1.00_fraction_0.005.json
+queue
+
+file=param_Imax_28.00_Istep_1.00_fraction_0.001.json
+queue
+
+file=param_Imax_28.00_Istep_0.02_fraction_1.000.json
+queue
+
+file=param_Imax_28.00_Istep_0.02_fraction_0.500.json
+queue
+
+file=param_Imax_28.00_Istep_0.02_fraction_0.100.json
+queue
+
+file=param_Imax_28.00_Istep_0.02_fraction_0.050.json
+queue
+
+file=param_Imax_28.00_Istep_0.02_fraction_0.010.json
+queue
+
+file=param_Imax_28.00_Istep_0.02_fraction_0.005.json
+queue
+
+file=param_Imax_28.00_Istep_0.02_fraction_0.001.json
+queue
+
+file=param_Imax_30.00_Istep_0.20_fraction_1.000.json
+queue
+
+file=param_Imax_30.00_Istep_0.20_fraction_0.500.json
+queue
+
+file=param_Imax_30.00_Istep_0.20_fraction_0.100.json
+queue
+
+file=param_Imax_30.00_Istep_0.20_fraction_0.050.json
+queue
+
+file=param_Imax_30.00_Istep_0.20_fraction_0.010.json
+queue
+
+file=param_Imax_30.00_Istep_0.20_fraction_0.005.json
+queue
+
+file=param_Imax_30.00_Istep_0.20_fraction_0.001.json
+queue
+
+file=param_Imax_30.00_Istep_0.10_fraction_1.000.json
+queue
+
+file=param_Imax_30.00_Istep_0.10_fraction_0.500.json
+queue
+
+file=param_Imax_30.00_Istep_0.10_fraction_0.100.json
+queue
+
+file=param_Imax_30.00_Istep_0.10_fraction_0.050.json
+queue
+
+file=param_Imax_30.00_Istep_0.10_fraction_0.010.json
+queue
+
+file=param_Imax_30.00_Istep_0.10_fraction_0.005.json
+queue
+
+file=param_Imax_30.00_Istep_0.10_fraction_0.001.json
+queue
+
+file=param_Imax_30.00_Istep_1.00_fraction_1.000.json
+queue
+
+file=param_Imax_30.00_Istep_1.00_fraction_0.500.json
+queue
+
+file=param_Imax_30.00_Istep_1.00_fraction_0.100.json
+queue
+
+file=param_Imax_30.00_Istep_1.00_fraction_0.050.json
+queue
+
+file=param_Imax_30.00_Istep_1.00_fraction_0.010.json
+queue
+
+file=param_Imax_30.00_Istep_1.00_fraction_0.005.json
+queue
+
+file=param_Imax_30.00_Istep_1.00_fraction_0.001.json
+queue
+
+file=param_Imax_30.00_Istep_0.02_fraction_1.000.json
+queue
+
+file=param_Imax_30.00_Istep_0.02_fraction_0.500.json
+queue
+
+file=param_Imax_30.00_Istep_0.02_fraction_0.100.json
+queue
+
+file=param_Imax_30.00_Istep_0.02_fraction_0.050.json
+queue
+
+file=param_Imax_30.00_Istep_0.02_fraction_0.010.json
+queue
+
+file=param_Imax_30.00_Istep_0.02_fraction_0.005.json
+queue
+
+file=param_Imax_30.00_Istep_0.02_fraction_0.001.json
 queue
 
