@@ -59,7 +59,12 @@ def interpolation_system(data_list):
             c_high = np.append(c_high, d["cur"])
         elif d["kind"] == "backward":
             d_gradient = np.gradient(d["cur"])
-            idx = np.argmin(d_gradient < d_gradient[-1] * 1.01)
+            idx = np.argmin(
+                np.logical_or(
+                    np.absolute(d_gradient / d_gradient[-1] - 1.0) > 0.01,
+                    np.sign(d_gradient) != np.sign(d_gradient[-1])
+                )
+            )
             if idx <= 0:
                 idx = len(d_gradient) - 1
             t_high = np.append(t_high, d["t_abs"][idx:])
@@ -69,7 +74,12 @@ def interpolation_system(data_list):
                 c_low = np.append(c_low, d["cur"][-1])
         elif d["kind"] == "forward":
             d_gradient = np.gradient(d["cur"])
-            idx = np.argmax(d_gradient > d_gradient[-1] * 0.99)
+            idx = np.argmin(
+                np.logical_or(
+                    np.absolute(d_gradient / d_gradient[-1] - 1.0) > 0.01,
+                    np.sign(d_gradient) != np.sign(d_gradient[-1])
+                )
+            )
             if idx <= 0:
                 idx = len(d_gradient) - 1
             t_low = np.append(t_low, d["t_abs"][idx:])
