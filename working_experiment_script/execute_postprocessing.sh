@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export EOS_MGM_URL=root://eosuser.cern.ch
-export MYPYTHON=/afs/cern.ch/work/c/camontan/public/miniconda3
+export MYPYTHON=/afs/cern.ch/work/c/camontan/public/anaconda3
 
 unset PYTHONHOME
 unset PYTHONPATH
