@@ -53,43 +53,36 @@ def interpolation_system(data_list):
     c_high = np.array([])
     for i, d in enumerate(data_list):
         if d["kind"] == "still":
-            t_low = np.append(t_low, d["t_abs"])
-            t_high = np.append(t_high, d["t_abs"])
-            c_low = np.append(c_low, d["cur"])
-            c_high = np.append(c_high, d["cur"])
+            t_low = np.append(t_low, d["t_abs"][-1])
+            t_high = np.append(t_high, d["t_abs"][-1])
+            c_low = np.append(c_low, d["cur"][-1])
+            c_high = np.append(c_high, d["cur"][-1])
         elif d["kind"] == "backward":
-            d_gradient = np.gradient(d["cur"])
-            idx = np.argmin(
-                np.logical_or(
-                    np.absolute(d_gradient / d_gradient[-1] - 1.0) > 0.01,
-                    np.sign(d_gradient) != np.sign(d_gradient[-1])
-                )
-            )
-            if idx <= 0:
-                idx = len(d_gradient) - 1
+            idx = len(d["cur"]) - 5
             t_high = np.append(t_high, d["t_abs"][idx:])
             c_high = np.append(c_high, d["cur"][idx:])
             if i == len(data_list) - 1:
-                t_low = np.append(t_low, d["t_abs"][-1])
-                c_low = np.append(c_low, d["cur"][-1])
+                t_low = np.append(t_low, d["t_abs"][idx:])
+                c_low = np.append(c_low, d["cur"][idx:])
         elif d["kind"] == "forward":
-            d_gradient = np.gradient(d["cur"])
-            idx = np.argmin(
-                np.logical_or(
-                    np.absolute(d_gradient / d_gradient[-1] - 1.0) > 0.01,
-                    np.sign(d_gradient) != np.sign(d_gradient[-1])
-                )
-            )
-            if idx <= 0:
-                idx = len(d_gradient) - 1
+            idx = len(d["cur"]) - 5
             t_low = np.append(t_low, d["t_abs"][idx:])
             c_low = np.append(c_low, d["cur"][idx:])
             if i == len(data_list) - 1:
-                t_high = np.append(t_high, d["t_abs"][-1])
-                c_high = np.append(c_high, d["cur"][-1])
+                t_high = np.append(t_high, d["t_abs"][idx:])
+                c_high = np.append(c_high, d["cur"][idx:])
 
-    low_f = scipy.interpolate.interp1d(t_low, c_low, kind="cubic")
-    high_f = scipy.interpolate.interp1d(t_high, c_high, kind="cubic")
+    c_high = np.array(
+        [c for c, _ in sorted(zip(c_high, t_high), key=lambda x: x[1])]
+    )
+    t_high = np.array(sorted(t_high))
+    c_low = np.array(
+        [c for c, _ in sorted(zip(c_low, t_low), key=lambda x: x[1])]
+    )
+    t_low = np.array(sorted(t_low))
+    
+    high_f = scipy.interpolate.UnivariateSpline(t_high, c_high, k=5, s=5)
+    low_f = scipy.interpolate.UnivariateSpline(t_low, c_low, k=5, s=5)
 
     def mid_f(x):
         return (low_f(x) + high_f(x)) / 2.0
